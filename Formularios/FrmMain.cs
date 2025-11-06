@@ -61,14 +61,14 @@ namespace FacturacionDAM.Formularios
 
         private void SeleccionarEmisor()
         {
-            if ( (Program.appDAM.estadoApp == EstadoApp.ConectadoSinEmisor) ||
-                 (Program.appDAM.estadoApp == EstadoApp.Conectado) )
+            if ((Program.appDAM.estadoApp == EstadoApp.ConectadoSinEmisor) ||
+                 (Program.appDAM.estadoApp == EstadoApp.Conectado))
             {
                 using (var frm = new FrmSeleccionarEmisor())
                 {
                     var resultado = frm.ShowDialog();
 
-                    Program.appDAM.estadoApp = 
+                    Program.appDAM.estadoApp =
                         (Program.appDAM.emisor == null) ? EstadoApp.ConectadoSinEmisor : EstadoApp.Conectado;
 
                 }
@@ -171,6 +171,11 @@ namespace FacturacionDAM.Formularios
         {
             RefreshToolBar();
             RefreshStatusBar();
+        }
+
+        private void tsBtnEmisores_Click(object sender, EventArgs e)
+        {
+            AbrirFormularioHijo<FrmBrowEmisores>();
         }
     }
 }

@@ -65,6 +65,7 @@
             txt_nombre = new TextBox();
             lbl_nifcif = new Label();
             tpage_otrosdetalles = new TabPage();
+            txt_descripcion = new TextBox();
             panel1.SuspendLayout();
             tab_emisor.SuspendLayout();
             tpage_datos.SuspendLayout();
@@ -72,6 +73,7 @@
             gbox_contacto.SuspendLayout();
             gbox_direccion.SuspendLayout();
             gbox_identidad.SuspendLayout();
+            tpage_otrosdetalles.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -95,6 +97,7 @@
             btn_cancelar.Text = "Cancelar";
             btn_cancelar.TextAlign = ContentAlignment.MiddleRight;
             btn_cancelar.UseVisualStyleBackColor = true;
+            btn_cancelar.Click += btn_cancelar_Click;
             // 
             // btn_aceptar
             // 
@@ -107,6 +110,7 @@
             btn_aceptar.Text = "Aceptar";
             btn_aceptar.TextAlign = ContentAlignment.MiddleRight;
             btn_aceptar.UseVisualStyleBackColor = true;
+            btn_aceptar.Click += btn_aceptar_Click;
             // 
             // tab_emisor
             // 
@@ -406,6 +410,7 @@
             // 
             // tpage_otrosdetalles
             // 
+            tpage_otrosdetalles.Controls.Add(txt_descripcion);
             tpage_otrosdetalles.Location = new Point(4, 24);
             tpage_otrosdetalles.Name = "tpage_otrosdetalles";
             tpage_otrosdetalles.Padding = new Padding(3);
@@ -413,6 +418,15 @@
             tpage_otrosdetalles.TabIndex = 1;
             tpage_otrosdetalles.Text = "Otros detalles";
             tpage_otrosdetalles.UseVisualStyleBackColor = true;
+            // 
+            // txt_descripcion
+            // 
+            txt_descripcion.Dock = DockStyle.Fill;
+            txt_descripcion.Location = new Point(3, 3);
+            txt_descripcion.Multiline = true;
+            txt_descripcion.Name = "txt_descripcion";
+            txt_descripcion.Size = new Size(773, 544);
+            txt_descripcion.TabIndex = 0;
             // 
             // FrmEmisor
             // 
@@ -435,6 +449,8 @@
             gbox_direccion.PerformLayout();
             gbox_identidad.ResumeLayout(false);
             gbox_identidad.PerformLayout();
+            tpage_otrosdetalles.ResumeLayout(false);
+            tpage_otrosdetalles.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -476,8 +492,6 @@
         private TextBox txt_nombre;
         private Label lbl_nifcif;
         private TabPage tpage_otrosdetalles;
-
-  
-
+        private TextBox txt_descripcion;
     }
 }

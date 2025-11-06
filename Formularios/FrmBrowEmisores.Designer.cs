@@ -32,7 +32,7 @@
             pnTools = new Panel();
             tsHerramientas = new ToolStrip();
             btnLoad = new ToolStripButton();
-            btnSave = new ToolStripButton();
+            btnEdit = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
             btnDelete = new ToolStripButton();
             toolStripSeparator2 = new ToolStripSeparator();
@@ -64,7 +64,7 @@
             // 
             // tsHerramientas
             // 
-            tsHerramientas.Items.AddRange(new ToolStripItem[] { btnLoad, btnSave, toolStripSeparator1, btnDelete, toolStripSeparator2, btnFirst, btnPrev, btnNext, btnLast });
+            tsHerramientas.Items.AddRange(new ToolStripItem[] { btnLoad, btnEdit, toolStripSeparator1, btnDelete, toolStripSeparator2, btnFirst, btnPrev, btnNext, btnLast });
             tsHerramientas.Location = new Point(0, 0);
             tsHerramientas.Name = "tsHerramientas";
             tsHerramientas.Size = new Size(800, 25);
@@ -81,16 +81,16 @@
             btnLoad.Text = "toolStripButton1";
             btnLoad.Click += btnLoad_Click;
             // 
-            // btnSave
+            // btnEdit
             // 
-            btnSave.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnSave.Image = (Image)resources.GetObject("btnSave.Image");
-            btnSave.ImageTransparentColor = Color.Magenta;
-            btnSave.Margin = new Padding(0, 1, 10, 2);
-            btnSave.Name = "btnSave";
-            btnSave.Size = new Size(23, 22);
-            btnSave.Text = "toolStripButton2";
-            btnSave.Click += btnSave_Click;
+            btnEdit.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnEdit.Image = (Image)resources.GetObject("btnEdit.Image");
+            btnEdit.ImageTransparentColor = Color.Magenta;
+            btnEdit.Margin = new Padding(0, 1, 10, 2);
+            btnEdit.Name = "btnEdit";
+            btnEdit.Size = new Size(23, 22);
+            btnEdit.Text = "toolStripButton2";
+            btnEdit.Click += btnEdit_Click;
             // 
             // toolStripSeparator1
             // 
@@ -198,6 +198,8 @@
             dgTabla.ReadOnly = true;
             dgTabla.Size = new Size(800, 395);
             dgTabla.TabIndex = 0;
+            dgTabla.CellFormatting += dgTabla_CellFormatting;
+            dgTabla.CellMouseDoubleClick += dgTabla_CellMouseDoubleClick;
             // 
             // FrmBrowEmisores
             // 
@@ -209,6 +211,9 @@
             Controls.Add(pnTools);
             Name = "FrmBrowEmisores";
             Text = "FrmBrowEmisores";
+            FormClosing += FrmBrowEmisores_FormClosing;
+            Load += FrmBrowEmisores_Load;
+            Shown += FrmBrowEmisores_Shown;
             pnTools.ResumeLayout(false);
             pnTools.PerformLayout();
             tsHerramientas.ResumeLayout(false);
@@ -234,7 +239,7 @@
         private DataGridView dgTabla;
         private ToolStrip tsHerramientas;
         private ToolStripButton btnLoad;
-        private ToolStripButton btnSave;
+        private ToolStripButton btnEdit;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripButton btnDelete;
         private ToolStripSeparator toolStripSeparator2;

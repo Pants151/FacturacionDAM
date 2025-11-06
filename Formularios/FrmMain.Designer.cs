@@ -94,7 +94,7 @@
             // tsItemMenuSeleccionarEmisor
             // 
             tsItemMenuSeleccionarEmisor.Name = "tsItemMenuSeleccionarEmisor";
-            tsItemMenuSeleccionarEmisor.Size = new Size(180, 22);
+            tsItemMenuSeleccionarEmisor.Size = new Size(173, 22);
             tsItemMenuSeleccionarEmisor.Text = "Seleccionar &Emisor";
             tsItemMenuSeleccionarEmisor.Click += tsItemMenuSeleccionarEmisor_Click;
             // 
@@ -102,7 +102,7 @@
             // 
             tsItemMenuSalir.Name = "tsItemMenuSalir";
             tsItemMenuSalir.ShortcutKeys = Keys.Control | Keys.F4;
-            tsItemMenuSalir.Size = new Size(180, 22);
+            tsItemMenuSalir.Size = new Size(173, 22);
             tsItemMenuSalir.Text = "&Salir";
             tsItemMenuSalir.Click += tsBtnSalir_Click;
             // 
@@ -210,6 +210,7 @@
             tsBtnEmisores.Size = new Size(97, 51);
             tsBtnEmisores.Text = "Emisores";
             tsBtnEmisores.TextImageRelation = TextImageRelation.ImageAboveText;
+            tsBtnEmisores.Click += tsBtnEmisores_Click;
             // 
             // toolStripSeparator3
             // 
