@@ -26,6 +26,7 @@ namespace FacturacionDAM.Formularios
                 tsMenuItemDepura.Visible = false;
 #endif
 
+            menuMain.MdiWindowListItem = ventanasToolStripMenuItem;
             SeleccionarEmisor();
             RefreshControles();
         }
@@ -78,8 +79,8 @@ namespace FacturacionDAM.Formularios
         private void CerrarFormulariosHijos()
         {
             foreach (Form frm in this.MdiChildren)
-                if (frm is not FrmDepuracion)
-                    frm.Close();
+                //if (frm is not FrmDepuracion)
+                frm.Close();
         }
 
 
@@ -113,31 +114,22 @@ namespace FacturacionDAM.Formularios
 
         private void RefreshToolBar()
         {
-            if (Program.appDAM.estadoApp != EstadoApp.Conectado)
-            {
-                foreach (ToolStripItem item in tsToolMain.Items)
-                {
-                    if (item is ToolStripButton)
-                    {
-                        switch (item.Name)
-                        {
-                            case "tsBtnConfig":
-                                item.Enabled = true;
-                                break;
-                            case "tsBtnSalir":
-                                item.Enabled = true;
-                                break;
-                            case "tsBtnEmisores":
-                                item.Enabled = (Program.appDAM.estadoApp == EstadoApp.ConectadoSinEmisor) ? true : false;
-                                break;
-                            default:
-                                item.Enabled = false;
-                                break;
+            // Esta es la lógica existente
+            bool conectadoConEmisor = (Program.appDAM.estadoApp == EstadoApp.Conectado);
+            bool conectadoSinEmisor = (Program.appDAM.estadoApp == EstadoApp.ConectadoSinEmisor);
+            bool sinConexion = (Program.appDAM.estadoApp == EstadoApp.SinConexion);
 
-                        }
-                    }
-                }
-            }
+            // Habilitar/Deshabilitar botones según el estado
+            tsBtnConfig.Enabled = true; // Siempre habilitado
+            tsBtnSalir.Enabled = true;  // Siempre habilitado
+
+            tsBtnEmisores.Enabled = (conectadoConEmisor || conectadoSinEmisor); // Habilitado si hay conexión
+
+            // Habilitar el resto solo si hay un emisor seleccionado
+            tsBtnVentas.Enabled = conectadoConEmisor;
+            tsBtnCompras.Enabled = conectadoConEmisor;
+            tsBtnClientes.Enabled = conectadoConEmisor; // <-- Habilitar Clientes
+            tsBtnProveedores.Enabled = conectadoConEmisor;
         }
 
         private void RefreshStatusBar()
@@ -176,6 +168,31 @@ namespace FacturacionDAM.Formularios
         private void tsBtnEmisores_Click(object sender, EventArgs e)
         {
             AbrirFormularioHijo<FrmBrowEmisores>();
+        }
+
+        private void cascadaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.Cascade);
+        }
+
+        private void mosaicoHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.TileHorizontal);
+        }
+
+        private void mosaicoVerticalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.TileVertical);
+        }
+
+        private void cerrarTodasLasVentanasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CerrarFormulariosHijos();
+        }
+
+        private void tsBtnClientes_Click(object sender, EventArgs e)
+        {
+            AbrirFormularioHijo<FrmBrowClientes>();
         }
     }
 }

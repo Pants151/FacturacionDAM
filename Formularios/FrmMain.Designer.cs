@@ -34,6 +34,11 @@
             archivoToolStripMenuItem = new ToolStripMenuItem();
             tsItemMenuSeleccionarEmisor = new ToolStripMenuItem();
             tsItemMenuSalir = new ToolStripMenuItem();
+            ventanasToolStripMenuItem = new ToolStripMenuItem();
+            cascadaToolStripMenuItem = new ToolStripMenuItem();
+            mosaicoHorizontalToolStripMenuItem = new ToolStripMenuItem();
+            mosaicoVerticalToolStripMenuItem = new ToolStripMenuItem();
+            cerrarTodasLasVentanasToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             tsMenuItemDepura = new ToolStripMenuItem();
             pnTools = new Panel();
@@ -77,7 +82,7 @@
             // 
             menuMain.BackColor = Color.Azure;
             menuMain.ImageScalingSize = new Size(20, 20);
-            menuMain.Items.AddRange(new ToolStripItem[] { archivoToolStripMenuItem, helpToolStripMenuItem });
+            menuMain.Items.AddRange(new ToolStripItem[] { archivoToolStripMenuItem, ventanasToolStripMenuItem, helpToolStripMenuItem });
             menuMain.Location = new Point(0, 0);
             menuMain.Name = "menuMain";
             menuMain.Size = new Size(936, 24);
@@ -105,6 +110,41 @@
             tsItemMenuSalir.Size = new Size(173, 22);
             tsItemMenuSalir.Text = "&Salir";
             tsItemMenuSalir.Click += tsBtnSalir_Click;
+            // 
+            // ventanasToolStripMenuItem
+            // 
+            ventanasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cascadaToolStripMenuItem, mosaicoHorizontalToolStripMenuItem, mosaicoVerticalToolStripMenuItem, cerrarTodasLasVentanasToolStripMenuItem });
+            ventanasToolStripMenuItem.Name = "ventanasToolStripMenuItem";
+            ventanasToolStripMenuItem.Size = new Size(66, 20);
+            ventanasToolStripMenuItem.Text = "&Ventanas";
+            // 
+            // cascadaToolStripMenuItem
+            // 
+            cascadaToolStripMenuItem.Name = "cascadaToolStripMenuItem";
+            cascadaToolStripMenuItem.Size = new Size(205, 22);
+            cascadaToolStripMenuItem.Text = "Cascada";
+            cascadaToolStripMenuItem.Click += cascadaToolStripMenuItem_Click;
+            // 
+            // mosaicoHorizontalToolStripMenuItem
+            // 
+            mosaicoHorizontalToolStripMenuItem.Name = "mosaicoHorizontalToolStripMenuItem";
+            mosaicoHorizontalToolStripMenuItem.Size = new Size(205, 22);
+            mosaicoHorizontalToolStripMenuItem.Text = "Mosaico horizontal";
+            mosaicoHorizontalToolStripMenuItem.Click += mosaicoHorizontalToolStripMenuItem_Click;
+            // 
+            // mosaicoVerticalToolStripMenuItem
+            // 
+            mosaicoVerticalToolStripMenuItem.Name = "mosaicoVerticalToolStripMenuItem";
+            mosaicoVerticalToolStripMenuItem.Size = new Size(205, 22);
+            mosaicoVerticalToolStripMenuItem.Text = "Mosaico vertical";
+            mosaicoVerticalToolStripMenuItem.Click += mosaicoVerticalToolStripMenuItem_Click;
+            // 
+            // cerrarTodasLasVentanasToolStripMenuItem
+            // 
+            cerrarTodasLasVentanasToolStripMenuItem.Name = "cerrarTodasLasVentanasToolStripMenuItem";
+            cerrarTodasLasVentanasToolStripMenuItem.Size = new Size(205, 22);
+            cerrarTodasLasVentanasToolStripMenuItem.Text = "Cerrar todas las ventanas";
+            cerrarTodasLasVentanasToolStripMenuItem.Click += cerrarTodasLasVentanasToolStripMenuItem_Click;
             // 
             // helpToolStripMenuItem
             // 
@@ -182,6 +222,7 @@
             tsBtnClientes.Size = new Size(97, 51);
             tsBtnClientes.Text = "Clientes";
             tsBtnClientes.TextImageRelation = TextImageRelation.ImageAboveText;
+            tsBtnClientes.Click += tsBtnClientes_Click;
             // 
             // tsBtnProveedores
             // 
@@ -353,5 +394,10 @@
         private ToolStripMenuItem archivoToolStripMenuItem;
         private ToolStripMenuItem tsItemMenuSeleccionarEmisor;
         private ToolStripMenuItem tsItemMenuSalir;
+        private ToolStripMenuItem ventanasToolStripMenuItem;
+        private ToolStripMenuItem cascadaToolStripMenuItem;
+        private ToolStripMenuItem mosaicoHorizontalToolStripMenuItem;
+        private ToolStripMenuItem mosaicoVerticalToolStripMenuItem;
+        private ToolStripMenuItem cerrarTodasLasVentanasToolStripMenuItem;
     }
 }
