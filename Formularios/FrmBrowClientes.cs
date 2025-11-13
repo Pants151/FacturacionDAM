@@ -307,5 +307,77 @@ namespace FacturacionDAM.Formularios
         {
             RestaurarEstadoVentana();
         }
+
+        // Exportar a CSV
+        private void Export_A_CSV(string rutaArchivo)
+        {
+            try
+            {
+                DataTable dt = (DataTable)_bs.DataSource;
+                List<string> lineas = new List<string>();
+
+                //Cabezera
+                var cabecera = dt.Columns.Cast<DataColumn>().Select(col => col.ColumnName);
+                lineas.Add(string.Join(";", cabecera));
+
+                //Filas de datos
+                foreach (DataRow row in dt.Rows)
+                {
+                    var campos = row.ItemArray.Select(field => field?.ToString()?.Replace(";", ","));
+                    lineas.Add(string.Join(";", campos));
+                }
+
+                File.WriteAllLines(rutaArchivo, lineas, Encoding.UTF8);
+                MessageBox.Show("Exportación a CSV completada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            catch (Exception ex)
+            {
+                //Program.appDAM.RegistrarLog($"Error al exportar a CSV: {ex.Message}");
+                MessageBox.Show($"Error al exportar a CSV: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Exportar a XML
+        private void Export_A_XML(string rutaArchivo)
+        {
+
+            try
+            {
+                DataTable dt = (DataTable)_bs.DataSource;
+                dt.TableName = "Clientes";
+                dt.WriteXml(rutaArchivo, XmlWriteMode.WriteSchema);
+                MessageBox.Show("Exportación a XML completada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                //Program.appDAM.RegistrarLog($"Error al exportar a XML: {ex.Message}");
+                MessageBox.Show($"Error al exportar a XML: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+        }
+
+
+
+        private void tsBtnExportCSV_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Archivo CSV (*.csv)|*.csv";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                Export_A_CSV(sfd.FileName);
+            }
+        }
+
+        private void tsBtnExportXML_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Archivo XML (*.xml)|*.xml";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                Export_A_XML(sfd.FileName);
+            }
+        }
     }
 }

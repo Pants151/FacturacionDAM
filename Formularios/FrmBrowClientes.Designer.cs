@@ -45,6 +45,9 @@
             tslbStatus = new ToolStripStatusLabel();
             pnData = new Panel();
             dgTabla = new DataGridView();
+            toolStripSeparator3 = new ToolStripSeparator();
+            tsBtnExportCSV = new ToolStripButton();
+            tsBtnExportXML = new ToolStripButton();
             pnTools.SuspendLayout();
             tsHerramientas.SuspendLayout();
             pnStatus.SuspendLayout();
@@ -64,7 +67,7 @@
             // 
             // tsHerramientas
             // 
-            tsHerramientas.Items.AddRange(new ToolStripItem[] { btnLoad, btnEdit, toolStripSeparator1, btnDelete, toolStripSeparator2, btnFirst, btnPrev, btnNext, btnLast });
+            tsHerramientas.Items.AddRange(new ToolStripItem[] { btnLoad, btnEdit, toolStripSeparator1, btnDelete, toolStripSeparator2, btnFirst, btnPrev, btnNext, btnLast, toolStripSeparator3, tsBtnExportCSV, tsBtnExportXML });
             tsHerramientas.Location = new Point(0, 0);
             tsHerramientas.Name = "tsHerramientas";
             tsHerramientas.Size = new Size(800, 25);
@@ -201,6 +204,33 @@
             dgTabla.CellFormatting += dgTabla_CellFormatting;
             dgTabla.CellMouseDoubleClick += dgTabla_CellMouseDoubleClick;
             // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(6, 25);
+            // 
+            // tsBtnExportCSV
+            // 
+            tsBtnExportCSV.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsBtnExportCSV.Image = (Image)resources.GetObject("tsBtnExportCSV.Image");
+            tsBtnExportCSV.ImageTransparentColor = Color.Magenta;
+            tsBtnExportCSV.Name = "tsBtnExportCSV";
+            tsBtnExportCSV.Size = new Size(23, 22);
+            tsBtnExportCSV.Text = "toolStripButton1";
+            tsBtnExportCSV.ToolTipText = "Exportar a CSV";
+            tsBtnExportCSV.Click += tsBtnExportCSV_Click;
+            // 
+            // tsBtnExportXML
+            // 
+            tsBtnExportXML.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsBtnExportXML.Image = (Image)resources.GetObject("tsBtnExportXML.Image");
+            tsBtnExportXML.ImageTransparentColor = Color.Magenta;
+            tsBtnExportXML.Name = "tsBtnExportXML";
+            tsBtnExportXML.Size = new Size(23, 22);
+            tsBtnExportXML.Text = "toolStripButton2";
+            tsBtnExportXML.ToolTipText = "Exportar a XML";
+            tsBtnExportXML.Click += tsBtnExportXML_Click;
+            // 
             // FrmBrowClientes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -251,5 +281,8 @@
         private ToolStripButton btnLast;
         private Panel pnTools;
         private Panel pnStatus;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripButton tsBtnExportCSV;
+        private ToolStripButton tsBtnExportXML;
     }
 }

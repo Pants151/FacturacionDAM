@@ -39,7 +39,7 @@ namespace FacturacionDAM.Formularios
             txt_nifcif.DataBindings.Add("Text", _bs, "nifcif");
             txt_razonsocial.DataBindings.Add("Text", _bs, "nombrecomercial");
             txt_nombre.DataBindings.Add("Text", _bs, "nombre");
-            txt_apellidos.DataBindings.Add("Text", _bs, "apellido");
+            txt_apellidos.DataBindings.Add("Text", _bs, "apellidos");
             txt_domicilio.DataBindings.Add("Text", _bs, "domicilio");
             txt_codigopostal.DataBindings.Add("Text", _bs, "codigopostal");
             txt_poblacion.DataBindings.Add("Text", _bs, "poblacion");
