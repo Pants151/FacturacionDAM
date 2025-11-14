@@ -61,6 +61,10 @@
             tsLbEtiquetaInfo = new ToolStripStatusLabel();
             tsLbEstado = new ToolStripStatusLabel();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            facToolStripMenuItem = new ToolStripMenuItem();
+            tiposDeIVAToolStripMenuItem = new ToolStripMenuItem();
+            tiposDeIVAToolStripMenuItem1 = new ToolStripMenuItem();
+            productosYServiciosToolStripMenuItem = new ToolStripMenuItem();
             pnMenu.SuspendLayout();
             menuMain.SuspendLayout();
             pnTools.SuspendLayout();
@@ -82,7 +86,7 @@
             // 
             menuMain.BackColor = Color.Azure;
             menuMain.ImageScalingSize = new Size(20, 20);
-            menuMain.Items.AddRange(new ToolStripItem[] { archivoToolStripMenuItem, ventanasToolStripMenuItem, helpToolStripMenuItem });
+            menuMain.Items.AddRange(new ToolStripItem[] { archivoToolStripMenuItem, ventanasToolStripMenuItem, helpToolStripMenuItem, facToolStripMenuItem });
             menuMain.Location = new Point(0, 0);
             menuMain.Name = "menuMain";
             menuMain.Size = new Size(936, 24);
@@ -337,6 +341,32 @@
             tsLbEstado.Name = "tsLbEstado";
             tsLbEstado.Size = new Size(0, 20);
             // 
+            // facToolStripMenuItem
+            // 
+            facToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { tiposDeIVAToolStripMenuItem, tiposDeIVAToolStripMenuItem1, productosYServiciosToolStripMenuItem });
+            facToolStripMenuItem.Name = "facToolStripMenuItem";
+            facToolStripMenuItem.Size = new Size(81, 20);
+            facToolStripMenuItem.Text = "Facturación";
+            // 
+            // tiposDeIVAToolStripMenuItem
+            // 
+            tiposDeIVAToolStripMenuItem.Name = "tiposDeIVAToolStripMenuItem";
+            tiposDeIVAToolStripMenuItem.Size = new Size(212, 22);
+            tiposDeIVAToolStripMenuItem.Text = "Conceptos de Facturación";
+            tiposDeIVAToolStripMenuItem.Click += tiposDeIVAToolStripMenuItem_Click;
+            // 
+            // tiposDeIVAToolStripMenuItem1
+            // 
+            tiposDeIVAToolStripMenuItem1.Name = "tiposDeIVAToolStripMenuItem1";
+            tiposDeIVAToolStripMenuItem1.Size = new Size(212, 22);
+            tiposDeIVAToolStripMenuItem1.Text = "Tipos de IVA";
+            // 
+            // productosYServiciosToolStripMenuItem
+            // 
+            productosYServiciosToolStripMenuItem.Name = "productosYServiciosToolStripMenuItem";
+            productosYServiciosToolStripMenuItem.Size = new Size(212, 22);
+            productosYServiciosToolStripMenuItem.Text = "Productos y Servicios";
+            // 
             // FrmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -399,5 +429,9 @@
         private ToolStripMenuItem mosaicoHorizontalToolStripMenuItem;
         private ToolStripMenuItem mosaicoVerticalToolStripMenuItem;
         private ToolStripMenuItem cerrarTodasLasVentanasToolStripMenuItem;
+        private ToolStripMenuItem facToolStripMenuItem;
+        private ToolStripMenuItem tiposDeIVAToolStripMenuItem;
+        private ToolStripMenuItem tiposDeIVAToolStripMenuItem1;
+        private ToolStripMenuItem productosYServiciosToolStripMenuItem;
     }
 }

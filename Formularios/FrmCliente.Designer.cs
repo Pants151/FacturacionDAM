@@ -262,6 +262,7 @@
             // txt_codigopostal
             // 
             txt_codigopostal.Location = new Point(622, 37);
+            txt_codigopostal.MaxLength = 5;
             txt_codigopostal.Name = "txt_codigopostal";
             txt_codigopostal.Size = new Size(112, 23);
             txt_codigopostal.TabIndex = 1;
@@ -362,7 +363,7 @@
             tpage_otrosdetalles.Location = new Point(4, 24);
             tpage_otrosdetalles.Name = "tpage_otrosdetalles";
             tpage_otrosdetalles.Padding = new Padding(3);
-            tpage_otrosdetalles.Size = new Size(779, 550);
+            tpage_otrosdetalles.Size = new Size(779, 458);
             tpage_otrosdetalles.TabIndex = 1;
             tpage_otrosdetalles.Text = "Otros detalles";
             tpage_otrosdetalles.UseVisualStyleBackColor = true;
@@ -373,7 +374,7 @@
             txt_descripcion.Location = new Point(3, 3);
             txt_descripcion.Multiline = true;
             txt_descripcion.Name = "txt_descripcion";
-            txt_descripcion.Size = new Size(773, 544);
+            txt_descripcion.Size = new Size(773, 452);
             txt_descripcion.TabIndex = 0;
             // 
             // FrmCliente

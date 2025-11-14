@@ -100,6 +100,7 @@ namespace FacturacionDAM.Formularios
             dgTabla.Columns["domicilio"].Visible = false;
             dgTabla.Columns["telefono2"].Visible = false;
             dgTabla.Columns["descripcion"].Visible = false;
+            dgTabla.Columns["idemisor"].Visible = false;
 
             // Cambiar los textos de las cabeceras
             dgTabla.Columns["nifcif"].HeaderText = "NIF/CIF";
@@ -285,8 +286,10 @@ namespace FacturacionDAM.Formularios
         }
 
         // Formatear la celda de provincia para mostrar el nombre en lugar del ID
+        // Formatear la celda de provincia para mostrar el nombre en lugar del ID
         private void dgTabla_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            // --- Esto ya lo tenías para las provincias ---
             if (dgTabla.Columns[e.ColumnIndex].Name == "idprovincia" && e.Value != null)
             {
                 if (e.Value is int idProvincia)
@@ -295,6 +298,21 @@ namespace FacturacionDAM.Formularios
                     e.FormattingApplied = true;
                 }
             }
+
+            // --- INICIO DE LA MODIFICACIÓN ---
+
+            // --- Añade esto para el Emisor ---
+            if (dgTabla.Columns[e.ColumnIndex].Name == "idemisor" && e.Value != null)
+            {
+                // Como todos los clientes son del emisor actual, 
+                // simplemente usamos el nombre del emisor cargado en el programa.
+                if (Program.appDAM.emisor != null)
+                {
+                    e.Value = Program.appDAM.emisor.nombreComercial;
+                    e.FormattingApplied = true;
+                }
+            }
+            // --- FIN DE LA MODIFICACIÓN ---
         }
 
         // Manejar el evento de cierre del formulario

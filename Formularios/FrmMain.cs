@@ -194,5 +194,10 @@ namespace FacturacionDAM.Formularios
         {
             AbrirFormularioHijo<FrmBrowClientes>();
         }
+
+        private void tiposDeIVAToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -170,10 +170,7 @@ namespace FacturacionDAM.Formularios
         }
         private void btnFirst_Click(object sender, EventArgs e) => _bs.MoveFirst();
 
-
         private void btnPrev_Click(object sender, EventArgs e) => _bs.MovePrevious();
-
-
 
         private void btnNext_Click(object sender, EventArgs e) => _bs.MoveNext();
 
