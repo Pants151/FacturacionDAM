@@ -62,9 +62,9 @@
             tsLbEstado = new ToolStripStatusLabel();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             facToolStripMenuItem = new ToolStripMenuItem();
-            tiposDeIVAToolStripMenuItem = new ToolStripMenuItem();
-            tiposDeIVAToolStripMenuItem1 = new ToolStripMenuItem();
-            productosYServiciosToolStripMenuItem = new ToolStripMenuItem();
+            tsMenuItemConceptosFac = new ToolStripMenuItem();
+            tsMenuItemTiposIVA = new ToolStripMenuItem();
+            tsMenuItemProdServ = new ToolStripMenuItem();
             pnMenu.SuspendLayout();
             menuMain.SuspendLayout();
             pnTools.SuspendLayout();
@@ -160,7 +160,7 @@
             // tsMenuItemDepura
             // 
             tsMenuItemDepura.Name = "tsMenuItemDepura";
-            tsMenuItemDepura.Size = new Size(135, 22);
+            tsMenuItemDepura.Size = new Size(180, 22);
             tsMenuItemDepura.Text = "&Depuración";
             tsMenuItemDepura.Click += tsMenuItemDepura_Click;
             // 
@@ -343,29 +343,28 @@
             // 
             // facToolStripMenuItem
             // 
-            facToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { tiposDeIVAToolStripMenuItem, tiposDeIVAToolStripMenuItem1, productosYServiciosToolStripMenuItem });
+            facToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { tsMenuItemConceptosFac, tsMenuItemTiposIVA, tsMenuItemProdServ });
             facToolStripMenuItem.Name = "facToolStripMenuItem";
             facToolStripMenuItem.Size = new Size(81, 20);
             facToolStripMenuItem.Text = "Facturación";
             // 
-            // tiposDeIVAToolStripMenuItem
+            // tsMenuItemConceptosFac
             // 
-            tiposDeIVAToolStripMenuItem.Name = "tiposDeIVAToolStripMenuItem";
-            tiposDeIVAToolStripMenuItem.Size = new Size(212, 22);
-            tiposDeIVAToolStripMenuItem.Text = "Conceptos de Facturación";
-            tiposDeIVAToolStripMenuItem.Click += tiposDeIVAToolStripMenuItem_Click;
+            tsMenuItemConceptosFac.Name = "tsMenuItemConceptosFac";
+            tsMenuItemConceptosFac.Size = new Size(212, 22);
+            tsMenuItemConceptosFac.Text = "Conceptos de Facturación";
             // 
-            // tiposDeIVAToolStripMenuItem1
+            // tsMenuItemTiposIVA
             // 
-            tiposDeIVAToolStripMenuItem1.Name = "tiposDeIVAToolStripMenuItem1";
-            tiposDeIVAToolStripMenuItem1.Size = new Size(212, 22);
-            tiposDeIVAToolStripMenuItem1.Text = "Tipos de IVA";
+            tsMenuItemTiposIVA.Name = "tsMenuItemTiposIVA";
+            tsMenuItemTiposIVA.Size = new Size(212, 22);
+            tsMenuItemTiposIVA.Text = "Tipos de IVA";
             // 
-            // productosYServiciosToolStripMenuItem
+            // tsMenuItemProdServ
             // 
-            productosYServiciosToolStripMenuItem.Name = "productosYServiciosToolStripMenuItem";
-            productosYServiciosToolStripMenuItem.Size = new Size(212, 22);
-            productosYServiciosToolStripMenuItem.Text = "Productos y Servicios";
+            tsMenuItemProdServ.Name = "tsMenuItemProdServ";
+            tsMenuItemProdServ.Size = new Size(212, 22);
+            tsMenuItemProdServ.Text = "Productos y Servicios";
             // 
             // FrmMain
             // 
@@ -430,8 +429,8 @@
         private ToolStripMenuItem mosaicoVerticalToolStripMenuItem;
         private ToolStripMenuItem cerrarTodasLasVentanasToolStripMenuItem;
         private ToolStripMenuItem facToolStripMenuItem;
-        private ToolStripMenuItem tiposDeIVAToolStripMenuItem;
-        private ToolStripMenuItem tiposDeIVAToolStripMenuItem1;
-        private ToolStripMenuItem productosYServiciosToolStripMenuItem;
+        private ToolStripMenuItem tsMenuItemConceptosFac;
+        private ToolStripMenuItem tsMenuItemTiposIVA;
+        private ToolStripMenuItem tsMenuItemProdServ;
     }
 }
