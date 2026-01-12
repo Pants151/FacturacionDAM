@@ -230,13 +230,12 @@ namespace FacturacionDAM.Formularios
             dgTabla.Columns["id"].Visible = false;
             dgTabla.Columns["telefono2"].Visible = false;
             dgTabla.Columns["domicilio"].Visible = false;
-
             dgTabla.Columns["nifcif"].HeaderText = "NIF/CIF";
             dgTabla.Columns["nifcif"].Width = 100;
             dgTabla.Columns["nombre"].HeaderText = "Nombre";
             dgTabla.Columns["nombre"].Width = 120;
-            dgTabla.Columns["apellidos"].HeaderText = "Apellidos";
-            dgTabla.Columns["apellidos"].Width = 160;
+            dgTabla.Columns["apellido"].HeaderText = "Apellidos";
+            dgTabla.Columns["apellido"].Width = 160;
             dgTabla.Columns["nombrecomercial"].HeaderText = "Nombre Comercial";
             dgTabla.Columns["nombrecomercial"].Width = 200;
             dgTabla.Columns["codigopostal"].HeaderText = "C.P.";

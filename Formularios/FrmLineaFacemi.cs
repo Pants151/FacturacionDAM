@@ -49,7 +49,7 @@ namespace FacturacionDAM.Formularios
         private void InitLineaFactura()
         {
             if (!(_bs.Current is DataRowView row)) return;
-            if (row["idfactura"] == DBNull.Value) row["idfactura"] = _idFactura;
+            if (row["id"] == DBNull.Value) row["id"] = _idFactura;
             if (row["cantidad"] == DBNull.Value) row["cantidad"] = 1m;
             if (row["precio"] == DBNull.Value) row["precio"] = 0m;
             if (row["base"] == DBNull.Value) row["base"] = 0m;
@@ -87,7 +87,7 @@ namespace FacturacionDAM.Formularios
             }
 
             // Relación con la factura
-            row["idfatura"] = _idFactura;
+            row["idfacemi"] = _idFactura;
 
             // Bindings principales
             cbProducto.DataBindings.Add("SelectedValue", _bs, "idproducto", true, DataSourceUpdateMode.OnPropertyChanged, DBNull.Value);
@@ -199,6 +199,8 @@ namespace FacturacionDAM.Formularios
         {
              if (!(_bs.Current is DataRowView row)) return false;
 
+            RecalcularLinea();
+
             // Si la descripción está vacía
             if (row["descripcion"] == DBNull.Value || string.IsNullOrWhiteSpace(row["descripcion"].ToString()))
             {
@@ -254,7 +256,6 @@ namespace FacturacionDAM.Formularios
                 return false;
             }
 
-
             // Si no se ha seleccionado un producto válido
             if (cbProducto.SelectedValue == DBNull.Value)
             {
@@ -262,6 +263,17 @@ namespace FacturacionDAM.Formularios
                     "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 cbProducto.Focus();
                 return false;
+            }
+
+            // Si el producto no está activo y no estamos en modo edición
+            if (_bsProductos.Current is DataRowView prodRow)
+            {
+                bool productoActivo = Convert.ToBoolean(prodRow["producto_activo"]);
+                if (!productoActivo && !_modoEdicion)
+                {
+                    MessageBox.Show("El producto seleccionado no está activo.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
             }
 
             // Si todo es correcto

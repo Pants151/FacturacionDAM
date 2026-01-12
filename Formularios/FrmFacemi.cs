@@ -107,6 +107,7 @@ namespace FacturacionDAM.Formularios
             // Si se cierra sin aceptar (OK), cancelamos la edición de la factura
             if (this.DialogResult != DialogResult.OK && _bsFactura != null)
             {
+                fechaFactura.DataBindings.Clear();
                 _bsFactura.CancelEdit();
             }
         }
@@ -231,8 +232,10 @@ namespace FacturacionDAM.Formularios
         }
 
 
-        private bool GuardarFactura () {
-            try  {
+        private bool GuardarFactura()
+        {
+            try
+            {
                 if (!ValidarDatos())
                     return false;
                 else
@@ -378,10 +381,10 @@ namespace FacturacionDAM.Formularios
 
 
             // Aplicar bindings
-            txtNumero.DataBindings.Add("Text", _bsFactura, "numero");
-            fechaFactura.DataBindings.Add("Value", _bsFactura, "fecha");
-            cbConceptFac.DataBindings.Add("SelectedValue", _bsFactura, "idconceptofac");
-            txtDescripcion.DataBindings.Add("Text", _bsFactura, "descripcion");
+            txtNumero.DataBindings.Add("Text", _bsFactura, "numero", true, DataSourceUpdateMode.OnPropertyChanged, "");
+            fechaFactura.DataBindings.Add("Value", _bsFactura, "fecha", true, DataSourceUpdateMode.OnPropertyChanged, DateTime.Now);
+            cbConceptFac.DataBindings.Add("SelectedValue", _bsFactura, "idconceptofac", true, DataSourceUpdateMode.OnPropertyChanged, -1);
+            txtDescripcion.DataBindings.Add("Text", _bsFactura, "descripcion", true, DataSourceUpdateMode.OnPropertyChanged, "");
             chkPagada.DataBindings.Add("Checked", _bsFactura, "pagada", true, DataSourceUpdateMode.OnPropertyChanged, false);
             chkRetencion.DataBindings.Add("Checked", _bsFactura, "aplicaret", true, DataSourceUpdateMode.OnPropertyChanged, false);
 
