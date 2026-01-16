@@ -78,15 +78,19 @@ namespace FacturacionDAM.Formularios
                 if (!CargarConceptos() || !CargarDatosEmisorYCliente())
                     return;
 
-                PrepararBindingFactura();
-
+                // 1. CARGAR LAS LÍNEAS PRIMERO (Para que LaTabla ya no sea null)
                 if (modoEdicion)
                     CargarLineasFacturaExistente();
                 else
                     CrearLineasFacturaNueva();
 
+                // 2. PREPARAR BINDINGS DESPUÉS
+                PrepararBindingFactura();
                 PrepararBindingLineas();
+
+                // 3. CALCULAR Y ACTUALIZAR ESTADO
                 RecalcularTotales();
+                ActualizarEstado();
             }
             catch (Exception ex)
             {
@@ -236,6 +240,8 @@ namespace FacturacionDAM.Formularios
         {
             try
             {
+                RecalcularTotales();
+
                 if (!ValidarDatos())
                     return false;
                 else
@@ -430,6 +436,8 @@ namespace FacturacionDAM.Formularios
         /// </summary>
         private void RecalcularTotales()
         {
+            if (_tablaLineasFactura?.LaTabla == null || _bsFactura.Current == null) return;
+
             decimal baseSum = 0, cuotaSum = 0;
 
             foreach (DataRow fila in _tablaLineasFactura.LaTabla.Rows)
@@ -615,5 +623,15 @@ namespace FacturacionDAM.Formularios
 
 
         #endregion
+
+        private void chkRetencion_CheckedChanged(object sender, EventArgs e)
+        {
+            RecalcularTotales();
+        }
+
+        private void numTipoRet_ValueChanged(object sender, EventArgs e)
+        {
+            RecalcularTotales();
+        }
     }
 }

@@ -408,6 +408,7 @@ namespace FacturacionDAM.Formularios
 
                     lbHeadFacemi.Text = $"Facturas de '{nombreCliente}', en el año {_year.CurrentYear}";
                     tsLbNumReg.Text = $"Facturas: {_bsFacturas.Count}";
+                    ActualizarTotalAnual(aAnho);
                 }
                 catch (Exception ex)
                 {
@@ -419,6 +420,36 @@ namespace FacturacionDAM.Formularios
                     tsLbNumReg.Text = "Facturas: 0";
                 }
             }
+        }
+
+        /// <summary>
+        /// Calcula el total de todas las facturas del emisor actual en el año seleccionado
+        /// y actualiza el estado.
+        /// </summary>
+        /// <param name="aAnho">Año para el cual se desea calcular el total.</param>
+        private void ActualizarTotalAnual(int aAnho)
+        {
+            decimal totalAnual = 0;
+
+            // Consulta SQL para sumar la columna 'total' de la tabla 'facemi'
+            // Filtrando por el emisor actual y el año de la fecha
+            string mSql = $@"SELECT SUM(total) FROM facemi 
+                    WHERE idemisor = {Program.appDAM.emisor.id} 
+                    AND YEAR(fecha) = {aAnho}";
+
+            // Usamos una tabla temporal para obtener el valor escalar
+            Tabla tTmp = new Tabla(Program.appDAM.LaConexion);
+            if (tTmp.InicializarDatos(mSql))
+            {
+                if (tTmp.LaTabla.Rows.Count > 0 && tTmp.LaTabla.Rows[0][0] != DBNull.Value)
+                {
+                    totalAnual = Convert.ToDecimal(tTmp.LaTabla.Rows[0][0]);
+                }
+            }
+            tTmp.Liberar();
+
+            // Actualizamos el texto del label con formato de moneda
+            tsLbTotalAnual.Text = $" | Total a ingresar del año {aAnho}: {totalAnual:N2} €";
         }
 
         #endregion

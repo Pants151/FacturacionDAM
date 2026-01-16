@@ -43,6 +43,7 @@
             statusStrip1 = new StatusStrip();
             tsLbNumReg = new ToolStripStatusLabel();
             tsLbStatus = new ToolStripStatusLabel();
+            tsLbTotalAnual = new ToolStripStatusLabel();
             pnMenu = new Panel();
             tsHerramientas = new ToolStrip();
             tsBtnNew = new ToolStripButton();
@@ -116,6 +117,7 @@
             dgClientes.Dock = DockStyle.Fill;
             dgClientes.Location = new Point(0, 0);
             dgClientes.Name = "dgClientes";
+            dgClientes.ReadOnly = true;
             dgClientes.RowHeadersWidth = 51;
             dgClientes.Size = new Size(278, 421);
             dgClientes.TabIndex = 0;
@@ -210,7 +212,7 @@
             // statusStrip1
             // 
             statusStrip1.ImageScalingSize = new Size(20, 20);
-            statusStrip1.Items.AddRange(new ToolStripItem[] { tsLbNumReg, tsLbStatus });
+            statusStrip1.Items.AddRange(new ToolStripItem[] { tsLbNumReg, tsLbStatus, tsLbTotalAnual });
             statusStrip1.Location = new Point(0, 0);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Size = new Size(560, 22);
@@ -228,6 +230,12 @@
             tsLbStatus.Margin = new Padding(10, 3, 0, 2);
             tsLbStatus.Name = "tsLbStatus";
             tsLbStatus.Size = new Size(0, 17);
+            // 
+            // tsLbTotalAnual
+            // 
+            tsLbTotalAnual.Name = "tsLbTotalAnual";
+            tsLbTotalAnual.Size = new Size(92, 17);
+            tsLbTotalAnual.Text = "Total año: 0,00 €";
             // 
             // pnMenu
             // 
@@ -442,5 +450,6 @@
         private Label lbHeadFacemi;
         private ToolStripLabel toolStripLabel1;
         private ToolStripComboBox tsComboYear;
+        private ToolStripStatusLabel tsLbTotalAnual;
     }
 }

@@ -223,8 +223,6 @@
             // 
             // numCantidad
             // 
-            numCantidad.DecimalPlaces = 2;
-            numCantidad.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
             numCantidad.Location = new Point(524, 65);
             numCantidad.Margin = new Padding(3, 2, 3, 2);
             numCantidad.Maximum = new decimal(new int[] { 9999, 0, 0, 131072 });
@@ -278,7 +276,7 @@
             numPrecio.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
             numPrecio.Location = new Point(108, 65);
             numPrecio.Margin = new Padding(3, 2, 3, 2);
-            numPrecio.Maximum = new decimal(new int[] { 9999, 0, 0, 131072 });
+            numPrecio.Maximum = new decimal(new int[] { 99999, 0, 0, 131072 });
             numPrecio.Name = "numPrecio";
             numPrecio.Size = new Size(95, 23);
             numPrecio.TabIndex = 27;

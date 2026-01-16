@@ -49,7 +49,7 @@ namespace FacturacionDAM.Formularios
         private void InitLineaFactura()
         {
             if (!(_bs.Current is DataRowView row)) return;
-            if (row["id"] == DBNull.Value) row["id"] = _idFactura;
+            if (row["idfacemi"] == DBNull.Value) row["idfacemi"] = _idFactura;
             if (row["cantidad"] == DBNull.Value) row["cantidad"] = 1m;
             if (row["precio"] == DBNull.Value) row["precio"] = 0m;
             if (row["base"] == DBNull.Value) row["base"] = 0m;
@@ -135,7 +135,7 @@ namespace FacturacionDAM.Formularios
 
             // Sentencia SQL select
             string mSql = @"SELECT p.id, p.descripcion, p.preciounidad, p.activo as producto_activo,
-                            t.porcentaje as iva_porcentaje, t.activo as iva_activo from producto p
+                            t.porcentaje as iva_porcentaje, t.activo as iva_activo from productos p
                             left join tiposiva t on t.id = p.idtipoiva order by p.descripcion";
 
             if (!_tablaProductos.InicializarDatos(mSql))
@@ -243,16 +243,6 @@ namespace FacturacionDAM.Formularios
                 MessageBox.Show("El tipo de IVA no puede ser mayor que 100.",
                     "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 numTipoIva.Focus();
-                return false;
-            }
-
-
-            // Si no se ha seleccionado ningún producto
-            if (cbProducto.SelectedIndex == -1)
-            {
-                MessageBox.Show("Debe seleccionar un producto.",
-                    "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cbProducto.Focus();
                 return false;
             }
 
