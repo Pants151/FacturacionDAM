@@ -76,6 +76,16 @@ namespace FacturacionDAM.Formularios
             AbrirFormularioHijo<FrmBrowProductos>();
         }
 
+        private void tsBtnProveedores_Click(object sender, EventArgs e)
+        {
+            AbrirFormularioHijo<FrmBrowProveedores>();
+        }
+
+        private void tsBtnCompras_Click(object sender, EventArgs e)
+        {
+            AbrirFormularioHijo<FrmBrowFacrec>();
+        }
+
 
         private void tsBtnVentas_Click(object sender, EventArgs e)
         {
@@ -249,6 +259,5 @@ namespace FacturacionDAM.Formularios
             RefreshToolBar();
             RefreshStatusBar();
         }
-
     }
 }

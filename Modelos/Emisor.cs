@@ -41,8 +41,6 @@ namespace FacturacionDAM.Modelos
                 this.nombreComercial = fila["nombrecomercial"].ToString();
                 this.nextNumFac = Convert.ToInt32(fila["nextnumfac"]);
             }
-
-            
         }
         
     }
