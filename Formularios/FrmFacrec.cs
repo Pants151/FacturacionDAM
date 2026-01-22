@@ -170,7 +170,7 @@ namespace FacturacionDAM.Formularios
             {
                 RecalcularTotales();
 
-                // 1. VALIDACIÓN: Ahora comprobamos que la descripción no esté vacía antes de enviar a la BD
+                // Comprobamos que la descripción no esté vacía antes de enviar a la BD
                 if (!ValidarDatos()) return false;
 
                 ForzarValoresNoNulos();
@@ -189,7 +189,7 @@ namespace FacturacionDAM.Formularios
                     modoEdicion = true;
                 }
 
-                // 2. IMPORTANTE: Solo intentamos guardar líneas si hay alguna
+                // Solo intentamos guardar líneas si hay alguna
                 if (_bsLineasFactura.Count > 0)
                 {
                     _tablaLineasFactura.GuardarCambios();
