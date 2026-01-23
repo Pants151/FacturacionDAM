@@ -212,6 +212,7 @@
             dgLineasFactura.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgLineasFactura.Size = new Size(858, 267);
             dgLineasFactura.TabIndex = 0;
+            dgLineasFactura.CellMouseDoubleClick += dgLineasFactura_CellMouseDoubleClick;
             // 
             // pnStatus
             // 
@@ -296,6 +297,51 @@
             tsBtnDelete.Text = "Eliminar registro";
             tsBtnDelete.Click += tsBtnDelete_Click;
             // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(6, 27);
+            // 
+            // tsBtnFirst
+            // 
+            tsBtnFirst.Image = (Image)resources.GetObject("tsBtnFirst.Image");
+            tsBtnFirst.Name = "tsBtnFirst";
+            tsBtnFirst.Size = new Size(24, 24);
+            // 
+            // tsBtnPrev
+            // 
+            tsBtnPrev.Image = (Image)resources.GetObject("tsBtnPrev.Image");
+            tsBtnPrev.Name = "tsBtnPrev";
+            tsBtnPrev.Size = new Size(24, 24);
+            // 
+            // tsBtnNext
+            // 
+            tsBtnNext.Image = (Image)resources.GetObject("tsBtnNext.Image");
+            tsBtnNext.Name = "tsBtnNext";
+            tsBtnNext.Size = new Size(24, 24);
+            // 
+            // tsBtnLast
+            // 
+            tsBtnLast.Image = (Image)resources.GetObject("tsBtnLast.Image");
+            tsBtnLast.Name = "tsBtnLast";
+            tsBtnLast.Size = new Size(24, 24);
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(6, 27);
+            // 
+            // tsBtnExportCSV
+            // 
+            tsBtnExportCSV.Name = "tsBtnExportCSV";
+            tsBtnExportCSV.Size = new Size(23, 24);
+            // 
+            // tsBtnExportXML
+            // 
+            tsBtnExportXML.Image = (Image)resources.GetObject("tsBtnExportXML.Image");
+            tsBtnExportXML.Name = "tsBtnExportXML";
+            tsBtnExportXML.Size = new Size(24, 24);
+            // 
             // PnFacrec
             // 
             PnFacrec.Controls.Add(gbTotales);
@@ -332,6 +378,7 @@
             lbRetencion.Location = new Point(545, 20);
             lbRetencion.Name = "lbRetencion";
             lbRetencion.Size = new Size(87, 23);
+            lbRetencion.TabIndex = 0;
             lbRetencion.Text = "0,00 €";
             lbRetencion.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -340,6 +387,7 @@
             label13.Location = new Point(467, 20);
             label13.Name = "label13";
             label13.Size = new Size(80, 23);
+            label13.TabIndex = 1;
             label13.Text = "Retención:";
             label13.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -349,6 +397,7 @@
             lbTotal.Location = new Point(356, 20);
             lbTotal.Name = "lbTotal";
             lbTotal.Size = new Size(87, 23);
+            lbTotal.TabIndex = 2;
             lbTotal.Text = "0,00 €";
             lbTotal.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -357,6 +406,7 @@
             label12.Location = new Point(298, 20);
             label12.Name = "label12";
             label12.Size = new Size(56, 23);
+            label12.TabIndex = 3;
             label12.Text = "Total:";
             label12.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -366,6 +416,7 @@
             lbCuota.Location = new Point(217, 20);
             lbCuota.Name = "lbCuota";
             lbCuota.Size = new Size(87, 23);
+            lbCuota.TabIndex = 4;
             lbCuota.Text = "0,00 €";
             lbCuota.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -374,6 +425,7 @@
             label11.Location = new Point(161, 20);
             label11.Name = "label11";
             label11.Size = new Size(56, 23);
+            label11.TabIndex = 5;
             label11.Text = "Cuota:";
             label11.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -383,6 +435,7 @@
             lbBase.Location = new Point(83, 20);
             lbBase.Name = "lbBase";
             lbBase.Size = new Size(87, 23);
+            lbBase.TabIndex = 6;
             lbBase.Text = "0,00 €";
             lbBase.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -391,6 +444,7 @@
             label17.Location = new Point(25, 20);
             label17.Name = "label17";
             label17.Size = new Size(56, 23);
+            label17.TabIndex = 7;
             label17.Text = "Base:";
             label17.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -432,6 +486,7 @@
             label3.Location = new Point(433, 98);
             label3.Name = "label3";
             label3.Size = new Size(105, 23);
+            label3.TabIndex = 11;
             label3.Text = "Tipo de Retención";
             label3.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -441,6 +496,7 @@
             chkRetencion.Location = new Point(292, 102);
             chkRetencion.Name = "chkRetencion";
             chkRetencion.Size = new Size(135, 19);
+            chkRetencion.TabIndex = 12;
             chkRetencion.Text = "¿Se aplica retención?";
             chkRetencion.UseVisualStyleBackColor = true;
             chkRetencion.CheckedChanged += chkRetencion_CheckedChanged;
@@ -451,6 +507,7 @@
             chkPagada.Location = new Point(97, 102);
             chkPagada.Name = "chkPagada";
             chkPagada.Size = new Size(75, 19);
+            chkPagada.TabIndex = 13;
             chkPagada.Text = "¿Pagada?";
             chkPagada.UseVisualStyleBackColor = true;
             // 
@@ -477,6 +534,7 @@
             label10.Location = new Point(385, 31);
             label10.Name = "label10";
             label10.Size = new Size(62, 15);
+            label10.TabIndex = 14;
             label10.Text = "Concepto:";
             // 
             // txtDescripcion
@@ -492,6 +550,7 @@
             label9.Location = new Point(10, 61);
             label9.Name = "label9";
             label9.Size = new Size(70, 23);
+            label9.TabIndex = 15;
             label9.Text = "Descripción";
             label9.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -501,11 +560,12 @@
             label8.Location = new Point(203, 31);
             label8.Name = "label8";
             label8.Size = new Size(41, 15);
+            label8.TabIndex = 16;
             label8.Text = "Fecha:";
             // 
             // txtNumero
             // 
-            txtNumero.Location = new Point(87, 27);
+            txtNumero.Location = new Point(87, 29);
             txtNumero.Name = "txtNumero";
             txtNumero.Size = new Size(88, 23);
             txtNumero.TabIndex = 1;
@@ -515,6 +575,7 @@
             label7.Location = new Point(10, 27);
             label7.Name = "label7";
             label7.Size = new Size(70, 23);
+            label7.TabIndex = 17;
             label7.Text = "Número";
             label7.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -544,6 +605,7 @@
             lbNombreProveedor.Location = new Point(400, 51);
             lbNombreProveedor.Name = "lbNombreProveedor";
             lbNombreProveedor.Size = new Size(420, 23);
+            lbNombreProveedor.TabIndex = 0;
             lbNombreProveedor.Text = "Nombre proveedor";
             lbNombreProveedor.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -554,6 +616,7 @@
             lbNifcifProveedor.Location = new Point(102, 51);
             lbNifcifProveedor.Name = "lbNifcifProveedor";
             lbNifcifProveedor.Size = new Size(125, 23);
+            lbNifcifProveedor.TabIndex = 1;
             lbNifcifProveedor.Text = "NIF/CIF Proveedor";
             lbNifcifProveedor.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -562,6 +625,7 @@
             label5.Location = new Point(233, 51);
             label5.Name = "label5";
             label5.Size = new Size(161, 23);
+            label5.TabIndex = 2;
             label5.Text = "Nombre Proveedor:";
             label5.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -570,6 +634,7 @@
             label6.Location = new Point(10, 51);
             label6.Name = "label6";
             label6.Size = new Size(91, 23);
+            label6.TabIndex = 3;
             label6.Text = "NIF/CIF Proveedor:";
             label6.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -581,6 +646,7 @@
             lbNombreEmisor.Location = new Point(400, 20);
             lbNombreEmisor.Name = "lbNombreEmisor";
             lbNombreEmisor.Size = new Size(420, 23);
+            lbNombreEmisor.TabIndex = 4;
             lbNombreEmisor.Text = "Nombre emisor";
             lbNombreEmisor.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -591,6 +657,7 @@
             lbNifcifEmisor.Location = new Point(102, 20);
             lbNifcifEmisor.Name = "lbNifcifEmisor";
             lbNifcifEmisor.Size = new Size(125, 23);
+            lbNifcifEmisor.TabIndex = 5;
             lbNifcifEmisor.Text = "NIF/CIF Emisor";
             lbNifcifEmisor.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -599,6 +666,7 @@
             label2.Location = new Point(233, 20);
             label2.Name = "label2";
             label2.Size = new Size(161, 23);
+            label2.TabIndex = 6;
             label2.Text = "Nombre Emisor:";
             label2.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -607,6 +675,7 @@
             label1.Location = new Point(10, 20);
             label1.Name = "label1";
             label1.Size = new Size(91, 23);
+            label1.TabIndex = 7;
             label1.Text = "NIF/CIF Emisor:";
             label1.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -628,6 +697,7 @@
             txtNotas.Name = "txtNotas";
             txtNotas.Size = new Size(862, 655);
             txtNotas.TabIndex = 0;
+            txtNotas.Text = "";
             // 
             // FrmFacrec
             // 

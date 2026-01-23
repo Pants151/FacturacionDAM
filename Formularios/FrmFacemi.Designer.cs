@@ -223,6 +223,7 @@
             dgLineasFactura.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgLineasFactura.Size = new Size(858, 267);
             dgLineasFactura.TabIndex = 0;
+            dgLineasFactura.MouseDoubleClick += dgLineasFactura_MouseDoubleClick;
             // 
             // pnStatus
             // 

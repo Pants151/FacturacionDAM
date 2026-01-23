@@ -633,5 +633,10 @@ namespace FacturacionDAM.Formularios
         {
             RecalcularTotales();
         }
+
+        private void dgLineasFactura_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            tsBtnEdit_Click(sender, e);
+        }
     }
 }

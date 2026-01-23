@@ -358,5 +358,10 @@ namespace FacturacionDAM.Formularios
 
         private void chkRetencion_CheckedChanged(object sender, EventArgs e) => RecalcularTotales();
         private void numTipoRet_ValueChanged(object sender, EventArgs e) => RecalcularTotales();
+
+        private void dgLineasFactura_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            tsBtnEdit_Click(sender, e);
+        }
     }
 }
