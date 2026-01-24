@@ -324,7 +324,7 @@ namespace FacturacionDAM.Formularios
                     string nombreProv = prov["nombrecomercial"].ToString();
                     lbHeadFacrec.Text = $"Facturas de '{nombreProv}', en el año {_year.CurrentYear}";
                     tsLbNumReg.Text = $"Facturas: {_bsFacturas.Count}";
-                    ActualizarTotalAnual(aAnho);
+                    ActualizarTotalesStatusBar(aAnho);
                 }
                 catch (Exception ex)
                 {
@@ -333,22 +333,30 @@ namespace FacturacionDAM.Formularios
             }
         }
 
-        private void ActualizarTotalAnual(int aAnho)
+        private void ActualizarTotalesStatusBar(int aAnho)
         {
-            decimal totalAnual = 0;
-            string mSql = $@"SELECT SUM(total) FROM facrec 
-                            WHERE idempresa = {Program.appDAM.emisor.id} 
-                            AND YEAR(fecha) = {aAnho}";
+            if (!(_bsProveedores.Current is DataRowView cli)) return;
+
+            int idSeleccionado = Convert.ToInt32(cli["id"]);
+            decimal baseTotal = 0, cuotaTotal = 0, totalFacturado = 0;
+
+            // Consulta que filtra por proveedor ESPECÍFICO y AÑO
+            string mSql = $@"SELECT SUM(base), SUM(cuota), SUM(total) FROM facrec 
+                    WHERE idproveedor = {idSeleccionado} 
+                    AND idemisor = {Program.appDAM.emisor.id} 
+                    AND YEAR(fecha) = {aAnho}";
 
             Tabla tTmp = new Tabla(Program.appDAM.LaConexion);
-            if (tTmp.InicializarDatos(mSql))
+            if (tTmp.InicializarDatos(mSql) && tTmp.LaTabla.Rows.Count > 0)
             {
-                if (tTmp.LaTabla.Rows.Count > 0 && tTmp.LaTabla.Rows[0][0] != DBNull.Value)
-                    totalAnual = Convert.ToDecimal(tTmp.LaTabla.Rows[0][0]);
+                DataRow r = tTmp.LaTabla.Rows[0];
+                baseTotal = r[0] != DBNull.Value ? Convert.ToDecimal(r[0]) : 0;
+                cuotaTotal = r[1] != DBNull.Value ? Convert.ToDecimal(r[1]) : 0;
+                totalFacturado = r[2] != DBNull.Value ? Convert.ToDecimal(r[2]) : 0;
             }
-            tTmp.Liberar();
 
-            tsLbTotalAnual.Text = $" | Total Compras del año {aAnho}: {totalAnual:N2} €";
+            // Orden: Base, Cuota, Total
+            tsLbTotalAnual.Text = $"Base: {baseTotal:N2} € | Cuota: {cuotaTotal:N2} € | TOTAL: {totalFacturado:N2} €";
         }
 
         #endregion

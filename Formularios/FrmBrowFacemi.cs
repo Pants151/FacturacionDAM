@@ -408,7 +408,7 @@ namespace FacturacionDAM.Formularios
 
                     lbHeadFacemi.Text = $"Facturas de '{nombreCliente}', en el año {_year.CurrentYear}";
                     tsLbNumReg.Text = $"Facturas: {_bsFacturas.Count}";
-                    ActualizarTotalAnual(aAnho);
+                    ActualizarTotaleStatusBar(aAnho);
                 }
                 catch (Exception ex)
                 {
@@ -427,29 +427,30 @@ namespace FacturacionDAM.Formularios
         /// y actualiza el estado.
         /// </summary>
         /// <param name="aAnho">Año para el cual se desea calcular el total.</param>
-        private void ActualizarTotalAnual(int aAnho)
+        private void ActualizarTotaleStatusBar(int aAnho)
         {
-            decimal totalAnual = 0;
+            if (!(_bsClientes.Current is DataRowView cli)) return; // _bsProveedores en Facrec
 
-            // Consulta SQL para sumar la columna 'total' de la tabla 'facemi'
-            // Filtrando por el emisor actual y el año de la fecha
-            string mSql = $@"SELECT SUM(total) FROM facemi 
-                    WHERE idemisor = {Program.appDAM.emisor.id} 
+            int idSeleccionado = Convert.ToInt32(cli["id"]);
+            decimal baseTotal = 0, cuotaTotal = 0, totalFacturado = 0;
+
+            // Consulta que filtra por cliente/proveedor ESPECÍFICO y AÑO
+            string mSql = $@"SELECT SUM(base), SUM(cuota), SUM(total) FROM facemi 
+                    WHERE idcliente = {idSeleccionado} 
+                    AND idemisor = {Program.appDAM.emisor.id} 
                     AND YEAR(fecha) = {aAnho}";
 
-            // Usamos una tabla temporal para obtener el valor escalar
             Tabla tTmp = new Tabla(Program.appDAM.LaConexion);
-            if (tTmp.InicializarDatos(mSql))
+            if (tTmp.InicializarDatos(mSql) && tTmp.LaTabla.Rows.Count > 0)
             {
-                if (tTmp.LaTabla.Rows.Count > 0 && tTmp.LaTabla.Rows[0][0] != DBNull.Value)
-                {
-                    totalAnual = Convert.ToDecimal(tTmp.LaTabla.Rows[0][0]);
-                }
+                DataRow r = tTmp.LaTabla.Rows[0];
+                baseTotal = r[0] != DBNull.Value ? Convert.ToDecimal(r[0]) : 0;
+                cuotaTotal = r[1] != DBNull.Value ? Convert.ToDecimal(r[1]) : 0;
+                totalFacturado = r[2] != DBNull.Value ? Convert.ToDecimal(r[2]) : 0;
             }
-            tTmp.Liberar();
 
-            // Actualizamos el texto del label con formato de moneda
-            tsLbTotalAnual.Text = $" | Total a ingresar del año {aAnho}: {totalAnual:N2} €";
+            // Orden: Base, Cuota, Total
+            tsLbTotalAnual.Text = $"Base: {baseTotal:N2} € | Cuota: {cuotaTotal:N2} € | TOTAL: {totalFacturado:N2} €";
         }
 
         #endregion

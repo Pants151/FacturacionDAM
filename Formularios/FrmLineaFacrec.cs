@@ -26,7 +26,7 @@ namespace FacturacionDAM.Formularios
 
         private void FrmLineaFacrec_Load(object sender, EventArgs e)
         {
-            // 1. Configurar límites de los controles numéricos (evita errores de desbordamiento)
+            // 1. Configurar límites de los controles numéricos (sobreescribe los del Designer)
             numCantidad.Maximum = 999999;
             numPrecio.Maximum = 999999;
             numTipoIva.Maximum = 100;
@@ -50,10 +50,14 @@ namespace FacturacionDAM.Formularios
             // 4. Vincular controles
             PrepararBindings();
 
-            // 5. Suscribir eventos para recalcular al cambiar valores
+            // Suscribir eventos de cambio en los controles numéricos
             numCantidad.ValueChanged += (s, ev) => RecalcularLinea();
             numPrecio.ValueChanged += (s, ev) => RecalcularLinea();
             numTipoIva.ValueChanged += (s, ev) => RecalcularLinea();
+
+            // Si quieres que responda también al escribir:
+            numCantidad.KeyUp += (s, ev) => RecalcularLinea();
+            numPrecio.KeyUp += (s, ev) => RecalcularLinea();
 
             RecalcularLinea();
         }
@@ -69,29 +73,29 @@ namespace FacturacionDAM.Formularios
         private void RecalcularLinea()
         {
             if (_bs.Current == null) return;
-            DataRowView row = (DataRowView)_bs.Current;
 
-            decimal cantidad = numCantidad.Value;
+            decimal cant = numCantidad.Value;
             decimal precio = numPrecio.Value;
-            decimal tipoIva = numTipoIva.Value;
+            decimal iva = numTipoIva.Value;
 
-            decimal baseImp = Math.Round(cantidad * precio, 2);
-            decimal cuotaIva = Math.Round(baseImp * (tipoIva / 100m), 2);
+            decimal baseLin = Math.Round(cant * precio, 2);
+            decimal cuotaLin = Math.Round(baseLin * (iva / 100), 2);
+            decimal totalLin = baseLin + cuotaLin;
 
-            // Guardar en el DataRow
-            row["base"] = baseImp;
-            row["cuota"] = cuotaIva;
+            // Actualizamos visualmente el panel de la línea
+            lbBase.Text = baseLin.ToString("N2") + " €";
+            lbCuota.Text = cuotaLin.ToString("N2") + " €"; // IMPORTANTE: Antes lbIva, ahora lbCuota
+            lbTotal.Text = totalLin.ToString("N2") + " €";
 
-            // Actualizar etiquetas visuales
-            lbBase.Text = baseImp.ToString("N2") + " €";
-            lbIva.Text = cuotaIva.ToString("N2") + " €";
-            lbTotal.Text = (baseImp + cuotaIva).ToString("N2") + " €";
+            // Muy importante: Actualizamos el DataRow vinculado para que los cambios se guarden
+            DataRowView row = (DataRowView)_bs.Current;
+            row["base"] = baseLin;
+            row["cuota"] = cuotaLin;
         }
 
         private void CargarProductos()
         {
             _tablaProductos = new Tabla(Program.appDAM.LaConexion);
-            // Traemos el % de IVA desde la tabla tiposiva unida a productos
             string sql = "SELECT p.id, p.descripcion, p.preciounidad, t.porcentaje " +
                          "FROM productos p LEFT JOIN tiposiva t ON p.idtipoiva = t.id ORDER BY p.descripcion";
 
@@ -105,7 +109,8 @@ namespace FacturacionDAM.Formularios
             }
         }
 
-        private void btnTrasladar_Click(object sender, EventArgs e)
+        // IMPORTANTE: Antes btnTrasladar_Click, ahora BtnProducto_Click
+        private void BtnProducto_Click(object sender, EventArgs e)
         {
             if (cbProducto.SelectedItem == null) return;
             DataRowView prod = (DataRowView)_bsProductos.Current;
@@ -125,7 +130,7 @@ namespace FacturacionDAM.Formularios
                 MessageBox.Show("La descripción de la línea es obligatoria.");
                 return;
             }
-            _bs.EndEdit(); // Esto confirma los cambios en la memoria local
+            _bs.EndEdit();
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

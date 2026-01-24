@@ -91,6 +91,10 @@ namespace FacturacionDAM.Formularios
                 // 3. CALCULAR Y ACTUALIZAR ESTADO
                 RecalcularTotales();
                 ActualizarEstado();
+
+                // Suscripción a eventos para cambios en tiempo real
+                chkRetencion.CheckedChanged += (s, ev) => RecalcularTotales();
+                numTipoRet.ValueChanged += (s, ev) => RecalcularTotales();
             }
             catch (Exception ex)
             {
@@ -234,7 +238,6 @@ namespace FacturacionDAM.Formularios
         {
             tsLbNumReg.Text = $"Nº de registros: {_bsLineasFactura.Count}";
         }
-
 
         private bool GuardarFactura()
         {
@@ -438,15 +441,26 @@ namespace FacturacionDAM.Formularios
         {
             if (_tablaLineasFactura?.LaTabla == null || _bsFactura.Current == null) return;
 
+            // Forzamos el guardado de los controles antes de resetear ---
+            // Si no hacemos esto, ResetCurrentItem borrará lo que acabas de cambiar
+            chkRetencion.DataBindings["Checked"]?.WriteValue();
+            numTipoRet.DataBindings["Value"]?.WriteValue();
+            // ---------------------------------------------------------------------
+
             decimal baseSum = 0, cuotaSum = 0;
 
             foreach (DataRow fila in _tablaLineasFactura.LaTabla.Rows)
             {
-                baseSum += fila.Field<decimal>("base");
-                cuotaSum += fila.Field<decimal>("cuota");
+                if (fila.RowState != DataRowState.Deleted)
+                {
+                    baseSum += fila.Field<decimal>("base");
+                    cuotaSum += fila.Field<decimal>("cuota");
+                }
             }
             decimal total = baseSum + cuotaSum;
 
+            // Nota: Como ya hemos hecho WriteValue arriba, ahora row["aplicaret"] ya tiene el valor correcto
+            // pero seguimos usando los controles para el cálculo local por seguridad.
             decimal tipoRet = chkRetencion.Checked ? numTipoRet.Value : 0;
             decimal retencion = Math.Round(baseSum * (tipoRet / 100), 2);
 
@@ -455,6 +469,9 @@ namespace FacturacionDAM.Formularios
             row["cuota"] = cuotaSum;
             row["total"] = total;
             row["retencion"] = retencion;
+
+            // Esto refresca los Labels de totales
+            _bsFactura.ResetCurrentItem();
         }
 
         /// <summary>
@@ -569,39 +586,25 @@ namespace FacturacionDAM.Formularios
             // 3. Comprobar duplicados usando EjecutarComando
             // ============================
 
-            int numero = Convert.ToInt32(row["numero"]);
+            int numero = Convert.ToInt32(txtNumero.Text);
             int idActual = modoEdicion ? idFactura : -1;
 
-            string sqlCheck = @"
-                SELECT COUNT(*) AS existe
-                FROM facemi
-                WHERE idemisor = @idemisor
-                  AND numero = @numero
-                  AND YEAR(fecha) = @anho
-                  AND id <> @idActual";
+            // Comprobamos si el número ya existe para este emisor en este año (independientemente del cliente)
+            string sqlCheck = $@"SELECT COUNT(*) FROM facemi 
+                    WHERE idemisor = {Program.appDAM.emisor.id} 
+                    AND numero = {numero} 
+                    AND YEAR(fecha) = {fechaFactura.Value.Year} 
+                    AND id <> {idActual}";
 
-            var parametros = new Dictionary<string, object>()
-                {
-                    { "@idemisor", _idEmisor },
-                    { "@numero", numero },
-                    { "@anho", _anhoFactura },
-                    { "@idActual", idActual }
-                };
-
-            int resultado = _tablaFactura.EjecutarComando(sqlCheck, parametros);
-
-            int duplicados = Convert.ToInt32(resultado);
-
-            if (duplicados > 0)
+            using (var cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlCheck, Program.appDAM.LaConexion))
             {
-                MessageBox.Show(
-                    $"Ya existe otra factura del emisor con el número {numero} en el año {_anhoFactura}.",
-                    "Número duplicado",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-
-                txtNumero.Focus();
-                return false;
+                if (Convert.ToInt32(cmd.ExecuteScalar()) > 0)
+                {
+                    MessageBox.Show($"El número de factura {numero} ya existe en el año {fechaFactura.Value.Year}.",
+                        "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtNumero.Focus();
+                    return false;
+                }
             }
 
             // ============================

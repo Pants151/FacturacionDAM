@@ -43,6 +43,15 @@ namespace FacturacionDAM.Formularios
             SeleccionarProductoSiEdicion();
             InitLineaFactura();
             RecalcularLinea();
+
+            // Suscribir eventos de cambio en los controles numéricos
+            numCantidad.ValueChanged += (s, ev) => RecalcularLinea();
+            numPrecio.ValueChanged += (s, ev) => RecalcularLinea();
+            numTipoIva.ValueChanged += (s, ev) => RecalcularLinea();
+
+            // Si quieres que responda también al escribir (no solo a las flechitas):
+            numCantidad.KeyUp += (s, ev) => RecalcularLinea();
+            numPrecio.KeyUp += (s, ev) => RecalcularLinea();
         }
 
         // Inicializa los valores de la línea de factura
@@ -108,22 +117,25 @@ namespace FacturacionDAM.Formularios
         /// </summary>
         private void RecalcularLinea()
         {
-            if (!(_bs.Current is DataRowView row)) return;
+            if (_bs.Current == null) return;
 
-            decimal unidades = numCantidad.Value;
+            decimal cant = numCantidad.Value;
             decimal precio = numPrecio.Value;
-            decimal tipoIva = numTipoIva.Value;
+            decimal iva = numTipoIva.Value;
 
-            decimal baseLinea = Math.Round(unidades * precio, 2);
-            decimal cuotaLinea = Math.Round(baseLinea * tipoIva / 100m, 2);
-            decimal totalLinea = baseLinea + cuotaLinea;
+            decimal baseLin = Math.Round(cant * precio, 2);
+            decimal cuotaLin = Math.Round(baseLin * (iva / 100), 2);
+            decimal totalLin = baseLin + cuotaLin;
 
-            row["base"] = baseLinea;
-            row["cuota"] = cuotaLinea;
+            // Actualizamos visualmente el panel de la línea
+            lbBase.Text = baseLin.ToString("N2") + " €";
+            lbCuota.Text = cuotaLin.ToString("N2") + " €";
+            lbTotal.Text = totalLin.ToString("N2") + " €";
 
-            lbBase.Text = $"{baseLinea:N2} €";
-            lbCuota.Text = $"{cuotaLinea:N2} €";
-            lbTotal.Text = $"{totalLinea:N2} €";
+            // Muy importante: Actualizamos el DataRow vinculado para que los cambios se guarden
+            DataRowView row = (DataRowView)_bs.Current;
+            row["base"] = baseLin;
+            row["cuota"] = cuotaLin;
         }
 
         /// <summary>

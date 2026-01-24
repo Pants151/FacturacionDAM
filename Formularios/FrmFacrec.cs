@@ -72,6 +72,10 @@ namespace FacturacionDAM.Formularios
 
                 RecalcularTotales();
                 ActualizarEstado();
+
+                // Suscripción a eventos para cambios en tiempo real
+                chkRetencion.CheckedChanged += (s, ev) => RecalcularTotales();
+                numTipoRet.ValueChanged += (s, ev) => RecalcularTotales();
             }
             catch (Exception ex)
             {
@@ -292,19 +296,40 @@ namespace FacturacionDAM.Formularios
         private void RecalcularTotales()
         {
             if (_tablaLineasFactura?.LaTabla == null || _bsFactura.Current == null) return;
+
+            // 1. Forzamos que los cambios en el Check y el Numeric se guarden en la fila AHORA.
+            // Si no hacemos esto, al llamar a ResetCurrentItem más abajo, se perdería el check
+            // que acabas de marcar porque leería el valor antiguo (false) de la fila.
+            chkRetencion.DataBindings["Checked"]?.WriteValue();
+            numTipoRet.DataBindings["Value"]?.WriteValue();
+
             decimal baseSum = 0, cuotaSum = 0;
+
             foreach (DataRow fila in _tablaLineasFactura.LaTabla.Rows)
             {
+                // Solo sumamos filas que no estén borradas
                 if (fila.RowState != DataRowState.Deleted)
                 {
-                    baseSum += Convert.ToDecimal(fila["base"]);
-                    cuotaSum += Convert.ToDecimal(fila["cuota"]);
+                    // Usamos Field<decimal> o Convert para asegurar el tipo
+                    baseSum += fila.Field<decimal>("base");
+                    cuotaSum += fila.Field<decimal>("cuota");
                 }
             }
+
+            // Calculamos totales usando los valores que acabamos de forzar (o los de la UI)
             decimal tRet = chkRetencion.Checked ? numTipoRet.Value : 0;
             decimal ret = Math.Round(baseSum * tRet / 100, 2);
+
+            // 2. Actualizamos la fila en memoria
             DataRowView row = (DataRowView)_bsFactura.Current;
-            row["base"] = baseSum; row["cuota"] = cuotaSum; row["retencion"] = ret; row["total"] = baseSum + cuotaSum - ret;
+            row["base"] = baseSum;
+            row["cuota"] = cuotaSum;
+            row["retencion"] = ret;
+            row["total"] = baseSum + cuotaSum - ret;
+
+            // 3. ¡Importante! Avisamos a todos los controles (incluidos los Labels de totales)
+            // de que los datos de la fila han cambiado y deben repintarse.
+            _bsFactura.ResetCurrentItem();
         }
 
         private void ForzarValoresNoNulos()
@@ -329,27 +354,96 @@ namespace FacturacionDAM.Formularios
 
         private bool ValidarDatos()
         {
-            // Comprobamos los campos que MySQL exige (NOT NULL) [Turn Context: facrec table]
-            if (string.IsNullOrWhiteSpace(txtNumero.Text))
+            if (!(_bsFactura.Current is DataRowView row))
+                return false;
+
+            // ============================
+            // 1. Validación de campos obligatorios
+            // ============================
+
+            // Número
+            if (row["numero"] == DBNull.Value || string.IsNullOrWhiteSpace(row["numero"].ToString()))
             {
-                MessageBox.Show("El número de factura es obligatorio.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El campo 'Número' es obligatorio.", "Validación",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtNumero.Focus();
                 return false;
             }
 
-            if (cbConceptFac.SelectedIndex == -1)
+            // Fecha
+            if (row["fecha"] == DBNull.Value)
             {
-                MessageBox.Show("Debe seleccionar un concepto de facturación.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El campo 'Fecha' es obligatorio.", "Validación",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                fechaFactura.Focus();
+                return false;
+            }
+
+            // Concepto de facturación
+            if (row["idconceptofac"] == DBNull.Value || Convert.ToInt32(row["idconceptofac"]) <= 0)
+            {
+                MessageBox.Show("Debe seleccionar un concepto de facturación.", "Validación",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 cbConceptFac.Focus();
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
+            // Descripción
+            if (row["descripcion"] == DBNull.Value || string.IsNullOrWhiteSpace(row["descripcion"].ToString()))
             {
-                MessageBox.Show("La descripción de la factura es obligatoria.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El campo 'Descripción' es obligatorio.", "Validación",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtDescripcion.Focus();
                 return false;
             }
+
+            // ============================
+            // 2. Fecha dentro del año seleccionado
+            // ============================
+
+            DateTime fecha = Convert.ToDateTime(row["fecha"]);
+            DateTime inicio = new DateTime(_anhoFactura, 1, 1);
+            DateTime fin = new DateTime(_anhoFactura, 12, 31);
+
+            if (fecha < inicio || fecha > fin)
+            {
+                MessageBox.Show(
+                    $"La fecha debe estar entre el {inicio:dd/MM/yyyy} y el {fin:dd/MM/yyyy}.",
+                    "Validación",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                fechaFactura.Focus();
+                return false;
+            }
+
+            // ============================
+            // 3. Comprobar duplicados usando EjecutarComando
+            // ============================
+
+            int numero = Convert.ToInt32(txtNumero.Text);
+            int idActual = modoEdicion ? idFactura : -1;
+
+            // Comprobamos si el número ya existe para este emisor en este año (independientemente del cliente)
+            string sqlCheck = $@"SELECT COUNT(*) FROM facrec 
+                    WHERE idempresa = {Program.appDAM.emisor.id} 
+                    AND numero = {numero} 
+                    AND YEAR(fecha) = {fechaFactura.Value.Year} 
+                    AND id <> {idActual}";
+
+            using (var cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlCheck, Program.appDAM.LaConexion))
+            {
+                if (Convert.ToInt32(cmd.ExecuteScalar()) > 0)
+                {
+                    MessageBox.Show($"El número de factura {numero} ya existe en el año {fechaFactura.Value.Year}.",
+                        "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtNumero.Focus();
+                    return false;
+                }
+            }
+
+            // ============================
+            // Todo correcto
+            // ============================
 
             return true;
         }

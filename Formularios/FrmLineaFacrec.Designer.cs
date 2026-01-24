@@ -2,8 +2,15 @@
 {
     partial class FrmLineaFacrec
     {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -15,293 +22,406 @@
 
         #region Windows Form Designer generated code
 
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
         private void InitializeComponent()
         {
-            gbAyuda = new GroupBox();
-            btnTrasladar = new Button();
-            cbProducto = new ComboBox();
-            label1 = new Label();
-            gbDatos = new GroupBox();
-            numTipoIva = new NumericUpDown();
-            label5 = new Label();
-            numPrecio = new NumericUpDown();
-            label4 = new Label();
-            numCantidad = new NumericUpDown();
-            label3 = new Label();
-            txtDescripcion = new TextBox();
-            label2 = new Label();
-            gbResumen = new GroupBox();
-            lbTotal = new Label();
-            label10 = new Label();
-            lbIva = new Label();
-            label8 = new Label();
-            lbBase = new Label();
-            label6 = new Label();
-            btnAceptar = new Button();
-            btnCancelar = new Button();
-            gbAyuda.SuspendLayout();
-            gbDatos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numTipoIva).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numPrecio).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numCantidad).BeginInit();
-            gbResumen.SuspendLayout();
-            SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLineaFacrec));
+            this.pnBtns = new System.Windows.Forms.Panel();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnAceptar = new System.Windows.Forms.Button();
+            this.pnData = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lbTotal = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.lbCuota = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lbBase = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.gbCalculo = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.numCantidad = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numTipoIva = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.numPrecio = new System.Windows.Forms.NumericUpDown();
+            this.txtDescripcion = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.gbProducto = new System.Windows.Forms.GroupBox();
+            this.BtnProducto = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbProducto = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.pnBtns.SuspendLayout();
+            this.pnData.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.gbCalculo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numCantidad)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTipoIva)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPrecio)).BeginInit();
+            this.gbProducto.SuspendLayout();
+            this.SuspendLayout();
             // 
-            // gbAyuda
+            // pnBtns
             // 
-            gbAyuda.Controls.Add(btnTrasladar);
-            gbAyuda.Controls.Add(cbProducto);
-            gbAyuda.Controls.Add(label1);
-            gbAyuda.Location = new Point(12, 12);
-            gbAyuda.Name = "gbAyuda";
-            gbAyuda.Size = new Size(460, 65);
-            gbAyuda.TabIndex = 0;
-            gbAyuda.TabStop = false;
-            gbAyuda.Text = "Ayuda: Buscar en catálogo de productos";
-            // 
-            // btnTrasladar
-            // 
-            btnTrasladar.Location = new Point(365, 27);
-            btnTrasladar.Name = "btnTrasladar";
-            btnTrasladar.Size = new Size(75, 25);
-            btnTrasladar.TabIndex = 2;
-            btnTrasladar.Text = "Trasladar";
-            btnTrasladar.UseVisualStyleBackColor = true;
-            btnTrasladar.Click += btnTrasladar_Click;
-            // 
-            // cbProducto
-            // 
-            cbProducto.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbProducto.FormattingEnabled = true;
-            cbProducto.Location = new Point(78, 28);
-            cbProducto.Name = "cbProducto";
-            cbProducto.Size = new Size(270, 23);
-            cbProducto.TabIndex = 1;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(13, 31);
-            label1.Name = "label1";
-            label1.Size = new Size(59, 15);
-            label1.Text = "Producto:";
-            // 
-            // gbDatos
-            // 
-            gbDatos.Controls.Add(numTipoIva);
-            gbDatos.Controls.Add(label5);
-            gbDatos.Controls.Add(numPrecio);
-            gbDatos.Controls.Add(label4);
-            gbDatos.Controls.Add(numCantidad);
-            gbDatos.Controls.Add(label3);
-            gbDatos.Controls.Add(txtDescripcion);
-            gbDatos.Controls.Add(label2);
-            gbDatos.Location = new Point(12, 83);
-            gbDatos.Name = "gbDatos";
-            gbDatos.Size = new Size(460, 110);
-            gbDatos.TabIndex = 1;
-            gbDatos.TabStop = false;
-            gbDatos.Text = "Detalles de la línea de compra";
-            // 
-            // numTipoIva
-            // 
-            numTipoIva.DecimalPlaces = 2;
-            numTipoIva.Location = new Point(365, 74);
-            numTipoIva.Name = "numTipoIva";
-            numTipoIva.Size = new Size(75, 23);
-            numTipoIva.TabIndex = 7;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(315, 78);
-            label5.Name = "label5";
-            label5.Size = new Size(37, 15);
-            label5.Text = "% IVA";
-            // 
-            // numPrecio
-            // 
-            numPrecio.DecimalPlaces = 2;
-            numPrecio.Location = new Point(194, 74);
-            numPrecio.Name = "numPrecio";
-            numPrecio.Size = new Size(95, 23);
-            numPrecio.TabIndex = 5;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(148, 78);
-            label4.Name = "label4";
-            label4.Size = new Size(40, 15);
-            label4.Text = "Precio";
-            // 
-            // numCantidad
-            // 
-            numCantidad.DecimalPlaces = 2;
-            numCantidad.Location = new Point(78, 74);
-            numCantidad.Name = "numCantidad";
-            numCantidad.Size = new Size(60, 23);
-            numCantidad.TabIndex = 3;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(13, 78);
-            label3.Name = "label3";
-            label3.Size = new Size(58, 15);
-            label3.Text = "Cantidad:";
-            // 
-            // txtDescripcion
-            // 
-            txtDescripcion.Location = new Point(94, 30);
-            txtDescripcion.Name = "txtDescripcion";
-            txtDescripcion.Size = new Size(346, 23);
-            txtDescripcion.TabIndex = 1;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(13, 33);
-            label2.Name = "label2";
-            label2.Size = new Size(72, 15);
-            label2.Text = "Descripción:";
-            // 
-            // gbResumen
-            // 
-            gbResumen.Controls.Add(lbTotal);
-            gbResumen.Controls.Add(label10);
-            gbResumen.Controls.Add(lbIva);
-            gbResumen.Controls.Add(label8);
-            gbResumen.Controls.Add(lbBase);
-            gbResumen.Controls.Add(label6);
-            gbResumen.Location = new Point(12, 199);
-            gbResumen.Name = "gbResumen";
-            gbResumen.Size = new Size(460, 60);
-            gbResumen.TabIndex = 2;
-            gbResumen.TabStop = false;
-            gbResumen.Text = "Importes de la línea";
-            // 
-            // lbTotal
-            // 
-            lbTotal.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lbTotal.Location = new Point(340, 33);
-            lbTotal.Name = "lbTotal";
-            lbTotal.Size = new Size(100, 15);
-            lbTotal.Text = "0,00 €";
-            lbTotal.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Location = new Point(340, 17);
-            label10.Name = "label10";
-            label10.Size = new Size(32, 15);
-            label10.Text = "Total";
-            // 
-            // lbIva
-            // 
-            lbIva.Location = new Point(194, 33);
-            lbIva.Name = "lbIva";
-            lbIva.Size = new Size(80, 15);
-            lbIva.Text = "0,00 €";
-            lbIva.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(194, 17);
-            label8.Name = "label8";
-            label8.Size = new Size(24, 15);
-            label8.Text = "IVA";
-            // 
-            // lbBase
-            // 
-            lbBase.Location = new Point(13, 33);
-            lbBase.Name = "lbBase";
-            lbBase.Size = new Size(80, 15);
-            lbBase.Text = "0,00 €";
-            lbBase.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(13, 17);
-            label6.Name = "label6";
-            label6.Size = new Size(31, 15);
-            label6.Text = "Base";
-            // 
-            // btnAceptar
-            // 
-            btnAceptar.Location = new Point(296, 275);
-            btnAceptar.Name = "btnAceptar";
-            btnAceptar.Size = new Size(85, 30);
-            btnAceptar.TabIndex = 3;
-            btnAceptar.Text = "Aceptar";
-            btnAceptar.UseVisualStyleBackColor = true;
-            btnAceptar.Click += btnAceptar_Click;
+            this.pnBtns.Controls.Add(this.btnCancelar);
+            this.pnBtns.Controls.Add(this.btnAceptar);
+            this.pnBtns.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnBtns.Location = new System.Drawing.Point(0, 299);
+            this.pnBtns.Name = "pnBtns";
+            this.pnBtns.Size = new System.Drawing.Size(690, 63);
+            this.pnBtns.TabIndex = 1;
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(387, 275);
-            btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(85, 30);
-            btnCancelar.TabIndex = 4;
-            btnCancelar.Text = "Cancelar";
-            btnCancelar.UseVisualStyleBackColor = true;
-            btnCancelar.Click += btnCancelar_Click;
+            this.btnCancelar.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelar.Image")));
+            this.btnCancelar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancelar.Location = new System.Drawing.Point(401, 14);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.btnCancelar.Size = new System.Drawing.Size(100, 36);
+            this.btnCancelar.TabIndex = 1;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // btnAceptar
+            // 
+            this.btnAceptar.Image = ((System.Drawing.Image)(resources.GetObject("btnAceptar.Image")));
+            this.btnAceptar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAceptar.Location = new System.Drawing.Point(198, 14);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.btnAceptar.Size = new System.Drawing.Size(100, 36);
+            this.btnAceptar.TabIndex = 0;
+            this.btnAceptar.Text = "Aceptar";
+            this.btnAceptar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            // 
+            // pnData
+            // 
+            this.pnData.Controls.Add(this.panel1);
+            this.pnData.Controls.Add(this.gbCalculo);
+            this.pnData.Controls.Add(this.gbProducto);
+            this.pnData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnData.Location = new System.Drawing.Point(0, 0);
+            this.pnData.Name = "pnData";
+            this.pnData.Size = new System.Drawing.Size(690, 299);
+            this.pnData.TabIndex = 2;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.lbTotal);
+            this.panel1.Controls.Add(this.label12);
+            this.panel1.Controls.Add(this.lbCuota);
+            this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.lbBase);
+            this.panel1.Controls.Add(this.label17);
+            this.panel1.Location = new System.Drawing.Point(20, 233);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 8);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(650, 48);
+            this.panel1.TabIndex = 36;
+            // 
+            // lbTotal
+            // 
+            this.lbTotal.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lbTotal.ForeColor = System.Drawing.Color.Black;
+            this.lbTotal.Location = new System.Drawing.Point(451, 12);
+            this.lbTotal.Name = "lbTotal";
+            this.lbTotal.Size = new System.Drawing.Size(87, 23);
+            this.lbTotal.TabIndex = 18;
+            this.lbTotal.Text = "10,00 €";
+            this.lbTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label12
+            // 
+            this.label12.Location = new System.Drawing.Point(393, 12);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(56, 23);
+            this.label12.TabIndex = 17;
+            this.label12.Text = "Total:";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lbCuota
+            // 
+            this.lbCuota.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lbCuota.ForeColor = System.Drawing.Color.Black;
+            this.lbCuota.Location = new System.Drawing.Point(308, 12);
+            this.lbCuota.Name = "lbCuota";
+            this.lbCuota.Size = new System.Drawing.Size(87, 23);
+            this.lbCuota.TabIndex = 16;
+            this.lbCuota.Text = "10,00 €";
+            this.lbCuota.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label11
+            // 
+            this.label11.Location = new System.Drawing.Point(252, 12);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(56, 23);
+            this.label11.TabIndex = 15;
+            this.label11.Text = "Cuota:";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lbBase
+            // 
+            this.lbBase.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lbBase.ForeColor = System.Drawing.Color.Black;
+            this.lbBase.Location = new System.Drawing.Point(157, 12);
+            this.lbBase.Name = "lbBase";
+            this.lbBase.Size = new System.Drawing.Size(87, 23);
+            this.lbBase.TabIndex = 14;
+            this.lbBase.Text = "10,00 €";
+            this.lbBase.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label17
+            // 
+            this.label17.Location = new System.Drawing.Point(99, 12);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(56, 23);
+            this.label17.TabIndex = 13;
+            this.label17.Text = "Base:";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // gbCalculo
+            // 
+            this.gbCalculo.Controls.Add(this.label6);
+            this.gbCalculo.Controls.Add(this.numCantidad);
+            this.gbCalculo.Controls.Add(this.label4);
+            this.gbCalculo.Controls.Add(this.numTipoIva);
+            this.gbCalculo.Controls.Add(this.label5);
+            this.gbCalculo.Controls.Add(this.label10);
+            this.gbCalculo.Controls.Add(this.numPrecio);
+            this.gbCalculo.Controls.Add(this.txtDescripcion);
+            this.gbCalculo.Controls.Add(this.label2);
+            this.gbCalculo.Controls.Add(this.label3);
+            this.gbCalculo.Location = new System.Drawing.Point(20, 120);
+            this.gbCalculo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gbCalculo.Name = "gbCalculo";
+            this.gbCalculo.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gbCalculo.Size = new System.Drawing.Size(649, 100);
+            this.gbCalculo.TabIndex = 18;
+            this.gbCalculo.TabStop = false;
+            this.gbCalculo.Text = "Cálculo de la Linea de Factura";
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(205, 64);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(65, 23);
+            this.label6.TabIndex = 34;
+            this.label6.Text = "(sin IVA)";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // numCantidad
+            // 
+            this.numCantidad.Location = new System.Drawing.Point(524, 65);
+            this.numCantidad.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numCantidad.Maximum = new decimal(new int[] { 9999, 0, 0, 131072 });
+            this.numCantidad.Name = "numCantidad";
+            this.numCantidad.Size = new System.Drawing.Size(94, 23);
+            this.numCantidad.TabIndex = 33;
+            this.numCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(449, 64);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(76, 23);
+            this.label4.TabIndex = 32;
+            this.label4.Text = "Unidades:";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // numTipoIva
+            // 
+            this.numTipoIva.DecimalPlaces = 2;
+            this.numTipoIva.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
+            this.numTipoIva.Location = new System.Drawing.Point(348, 65);
+            this.numTipoIva.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numTipoIva.Maximum = new decimal(new int[] { 9999, 0, 0, 131072 });
+            this.numTipoIva.Name = "numTipoIva";
+            this.numTipoIva.Size = new System.Drawing.Size(64, 23);
+            this.numTipoIva.TabIndex = 31;
+            this.numTipoIva.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label5
+            // 
+            this.label5.Location = new System.Drawing.Point(414, 64);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(25, 23);
+            this.label5.TabIndex = 30;
+            this.label5.Text = "%";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label10
+            // 
+            this.label10.Location = new System.Drawing.Point(263, 64);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(86, 23);
+            this.label10.TabIndex = 28;
+            this.label10.Text = "Tipo de IVA:";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // numPrecio
+            // 
+            this.numPrecio.DecimalPlaces = 2;
+            this.numPrecio.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
+            this.numPrecio.Location = new System.Drawing.Point(108, 65);
+            this.numPrecio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numPrecio.Maximum = new decimal(new int[] { 99999, 0, 0, 131072 });
+            this.numPrecio.Name = "numPrecio";
+            this.numPrecio.Size = new System.Drawing.Size(95, 23);
+            this.numPrecio.TabIndex = 27;
+            this.numPrecio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtDescripcion
+            // 
+            this.txtDescripcion.Location = new System.Drawing.Point(108, 33);
+            this.txtDescripcion.MaxLength = 255;
+            this.txtDescripcion.Name = "txtDescripcion";
+            this.txtDescripcion.Size = new System.Drawing.Size(511, 23);
+            this.txtDescripcion.TabIndex = 26;
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(5, 64);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(101, 23);
+            this.label2.TabIndex = 24;
+            this.label2.Text = "Precio/Unidad:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(20, 33);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(86, 23);
+            this.label3.TabIndex = 25;
+            this.label3.Text = "Descripción:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // gbProducto
+            // 
+            this.gbProducto.Controls.Add(this.BtnProducto);
+            this.gbProducto.Controls.Add(this.label1);
+            this.gbProducto.Controls.Add(this.cbProducto);
+            this.gbProducto.Controls.Add(this.label7);
+            this.gbProducto.Location = new System.Drawing.Point(20, 14);
+            this.gbProducto.Name = "gbProducto";
+            this.gbProducto.Size = new System.Drawing.Size(649, 95);
+            this.gbProducto.TabIndex = 5;
+            this.gbProducto.TabStop = false;
+            this.gbProducto.Text = "Producto (opcional)";
+            // 
+            // BtnProducto
+            // 
+            this.BtnProducto.Image = ((System.Drawing.Image)(resources.GetObject("BtnProducto.Image")));
+            this.BtnProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnProducto.Location = new System.Drawing.Point(463, 52);
+            this.BtnProducto.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.BtnProducto.Name = "BtnProducto";
+            this.BtnProducto.Padding = new System.Windows.Forms.Padding(14, 0, 10, 0);
+            this.BtnProducto.Size = new System.Drawing.Size(119, 32);
+            this.BtnProducto.TabIndex = 9;
+            this.BtnProducto.Text = "Trasladar";
+            this.BtnProducto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnProducto.UseVisualStyleBackColor = true;
+            this.BtnProducto.Click += new System.EventHandler(this.BtnProducto_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(17, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(514, 15);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Selecciona un producto para trasladar su precio y tipo de IVA a los cálculos de l" +
+    "a línea de factura.";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cbProducto
+            // 
+            this.cbProducto.FormattingEnabled = true;
+            this.cbProducto.Location = new System.Drawing.Point(116, 58);
+            this.cbProducto.Name = "cbProducto";
+            this.cbProducto.Size = new System.Drawing.Size(334, 23);
+            this.cbProducto.TabIndex = 7;
+            // 
+            // label7
+            // 
+            this.label7.Location = new System.Drawing.Point(42, 56);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(68, 23);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Producto:";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // FrmLineaFacrec
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(484, 321);
-            Controls.Add(btnCancelar);
-            Controls.Add(btnAceptar);
-            Controls.Add(gbResumen);
-            Controls.Add(gbDatos);
-            Controls.Add(gbAyuda);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
-            MaximizeBox = false;
-            MinimizeBox = false;
-            Name = "FrmLineaFacrec";
-            StartPosition = FormStartPosition.CenterParent;
-            Text = "Línea de Factura de Compra";
-            Load += FrmLineaFacrec_Load;
-            gbAyuda.ResumeLayout(false);
-            gbAyuda.PerformLayout();
-            gbDatos.ResumeLayout(false);
-            gbDatos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numTipoIva).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numPrecio).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numCantidad).EndInit();
-            gbResumen.ResumeLayout(false);
-            gbResumen.PerformLayout();
-            ResumeLayout(false);
+            this.AcceptButton = this.btnAceptar;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancelar;
+            this.ClientSize = new System.Drawing.Size(690, 362);
+            this.Controls.Add(this.pnData);
+            this.Controls.Add(this.pnBtns);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "FrmLineaFacrec";
+            this.Text = "Linea de Factura Recibida";
+            this.Load += new System.EventHandler(this.FrmLineaFacrec_Load);
+            this.pnBtns.ResumeLayout(false);
+            this.pnData.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.gbCalculo.ResumeLayout(false);
+            this.gbCalculo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numCantidad)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTipoIva)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPrecio)).EndInit();
+            this.gbProducto.ResumeLayout(false);
+            this.gbProducto.PerformLayout();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
 
-        private GroupBox gbAyuda;
-        private Label label1;
-        private ComboBox cbProducto;
-        private Button btnTrasladar;
-        private GroupBox gbDatos;
-        private Label label2;
-        private TextBox txtDescripcion;
-        private Label label3;
-        private NumericUpDown numCantidad;
-        private Label label4;
-        private NumericUpDown numPrecio;
-        private Label label5;
-        private NumericUpDown numTipoIva;
-        private GroupBox gbResumen;
-        private Label label6;
-        private Label lbBase;
-        private Label label8;
-        private Label lbIva;
-        private Label label10;
-        private Label lbTotal;
-        private Button btnAceptar;
-        private Button btnCancelar;
+        private System.Windows.Forms.Panel pnBtns;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.Panel pnData;
+        private System.Windows.Forms.GroupBox gbProducto;
+        private System.Windows.Forms.ComboBox cbProducto;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button BtnProducto;
+        private System.Windows.Forms.GroupBox gbCalculo;
+        private System.Windows.Forms.NumericUpDown numTipoIva;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.NumericUpDown numPrecio;
+        private System.Windows.Forms.TextBox txtDescripcion;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown numCantidad;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lbTotal;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lbCuota;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lbBase;
+        private System.Windows.Forms.Label label17;
     }
 }
