@@ -275,26 +275,51 @@ namespace FacturacionDAM.Formularios
         // Botón para imprimir SIN Retención
         private void tsBtnImpSinRet_Click(object sender, EventArgs e)
         {
+            // Validar que haya una factura seleccionada en la tabla
+            if (_bsFacturas == null || !(_bsFacturas.Current is DataRowView row))
+            {
+                MessageBox.Show("Por favor, seleccione una factura de la lista antes de generar el informe.",
+                    "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Validar que la factura NO tenga retención
+            bool aplicaRet = Convert.ToBoolean(row["aplicaret"]);
+            decimal tipoRet = row["tiporet"] != DBNull.Value ? Convert.ToDecimal(row["tiporet"]) : 0m;
+
+            if (aplicaRet && tipoRet > 0m)
+            {
+                MessageBox.Show("Esta factura tiene aplicada una retención.\nPor favor, utilice el botón de 'Factura Emitida (Con retención)'.",
+                    "Validación de informe", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             GenerarInformeFacturaIndividual(false);
         }
 
         // Botón para imprimir CON Retención
         private void tsBtnImpConRet_Click(object sender, EventArgs e)
         {
-            if (_bsFacturas.Current is DataRowView row)
+            // Validar que haya una factura seleccionada en la tabla
+            if (_bsFacturas == null || !(_bsFacturas.Current is DataRowView row))
             {
-                bool aplicaRet = Convert.ToBoolean(row["aplicaret"]);
-                decimal tipoRet = row["tiporet"] != DBNull.Value ? Convert.ToDecimal(row["tiporet"]) : 0m;
-
-                if (!aplicaRet || tipoRet == 0m)
-                {
-                    MessageBox.Show("Esta factura no tiene marcada la aplicación de retención o no tiene un porcentaje especificado.\nNo se puede generar este informe.",
-                        "Validación de informe", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                GenerarInformeFacturaIndividual(true);
+                MessageBox.Show("Por favor, seleccione una factura de la lista antes de generar el informe.",
+                    "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
+
+            // Validar que la factura SÍ tenga retención
+            bool aplicaRet = Convert.ToBoolean(row["aplicaret"]);
+            decimal tipoRet = row["tiporet"] != DBNull.Value ? Convert.ToDecimal(row["tiporet"]) : 0m;
+
+            if (!aplicaRet || tipoRet == 0m)
+            {
+                MessageBox.Show("Esta factura no tiene marcada la aplicación de retención o no tiene un porcentaje especificado.\nNo se puede generar este informe.",
+                    "Validación de informe", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            GenerarInformeFacturaIndividual(true);
         }
         #endregion
 
@@ -503,15 +528,15 @@ namespace FacturacionDAM.Formularios
             int idFactura = Convert.ToInt32(row["id"]);
 
             string sql = $@"
-                SELECT 
-                    f.numero AS Numero, f.fecha AS Fecha, f.descripcion AS DescripcionFactura, 
-                    f.base AS BaseFra, f.cuota AS CuotaFra, f.total AS TotalFra, f.retencion AS RetencionFra, f.tiporet AS TipoRetencion,
-                    c.nombrecomercial AS ClienteNombre, c.nifcif AS ClienteNif, c.direccion AS ClienteDireccion, c.poblacion AS ClienteCiudad, c.telefono AS ClienteTelefono,
-                    l.cantidad AS Unidades, l.descripcion AS LineaDesc, l.precio AS Precio, l.tipoiva AS TipoIVA, l.cuota AS CuotaIVA, (l.base + l.cuota) AS TotalLinea
-                FROM facemi f
-                JOIN clientes c ON f.idcliente = c.id
-                JOIN facemilin l ON f.idfacemi = f.id
-                WHERE f.id = {idFactura}";
+        SELECT 
+            f.numero AS Numero, f.fecha AS Fecha, f.descripcion AS DescripcionFactura, 
+            f.base AS BaseFra, f.cuota AS CuotaFra, f.total AS TotalFra, f.retencion AS RetencionFra, f.tiporet AS TipoRetencion,
+            c.nombrecomercial AS ClienteNombre, c.nifcif AS ClienteNif, c.domicilio AS ClienteDireccion, c.poblacion AS ClienteCiudad, c.telefono1 AS ClienteTelefono,
+            l.cantidad AS Unidades, l.descripcion AS LineaDesc, l.precio AS Precio, l.tipoiva AS TipoIVA, l.cuota AS CuotaIVA, (l.base + l.cuota) AS TotalLinea
+        FROM facemi f
+        JOIN clientes c ON f.idcliente = c.id
+        LEFT JOIN facemilin l ON l.idfacemi = f.id
+        WHERE f.id = {idFactura}";
 
             Tabla tFactura = new Tabla(Program.appDAM.LaConexion);
 
@@ -521,7 +546,6 @@ namespace FacturacionDAM.Formularios
                 {
                     StiReport reporte = new StiReport();
 
-                    // Elegimos el diseño según el botón que hayamos pulsado
                     string rutaReporte = conRetencion ? "Informes/FacturaConRetencion.mrt" : "Informes/FacturaSinRetencion.mrt";
                     reporte.Load(rutaReporte);
 
@@ -534,15 +558,31 @@ namespace FacturacionDAM.Formularios
                     reporte.RegData(ds);
                     reporte.Dictionary.Synchronize();
 
-                    // Variables globales del Emisor (Datos reales)
-                    reporte.Dictionary.Variables["emisor_nombre"].Value = Program.appDAM.emisor.nombreComercial;
-                    reporte.Dictionary.Variables["emisor_nif"].Value = Program.appDAM.emisor.nifcif;
+                    // Función interna que inyecta variables de forma 100% segura. 
+                    void InyectarVariable(string nombre, string valor)
+                    {
+                        if (reporte.Dictionary.Variables.Contains(nombre))
+                        {
+                            reporte.Dictionary.Variables[nombre].Value = valor;
+                        }
+                        else
+                        {
+                            // La creamos sobre la marcha para evitar el NullReferenceException
+                            reporte.Dictionary.Variables.Add(new Stimulsoft.Report.Dictionary.StiVariable("", nombre, typeof(string), valor, false));
+                        }
+                    }
 
-                    // Datos ficticios de estética para rellenar la factura
-                    reporte.Dictionary.Variables["emisor_direccion"].Value = "Av. Andalucía 35";
-                    reporte.Dictionary.Variables["emisor_cp_ciudad"].Value = "29001 Málaga";
-                    reporte.Dictionary.Variables["emisor_telefono"].Value = "900 123 456";
-                    reporte.Dictionary.Variables["emisor_cuenta"].Value = "ES21 1234 5678 90 1234567890";
+                    // 1. Inyectamos las variables globales del Emisor (Datos reales). 
+                    // Ponemos "??" por si algún emisor en la BD no tuviera nombre comercial guardado.
+                    InyectarVariable("emisor_nombre", Program.appDAM.emisor.nombreComercial ?? "");
+                    InyectarVariable("emisor_nif", Program.appDAM.emisor.nifcif ?? "");
+
+                    // 2. Datos ficticios de estética para rellenar la factura
+                    InyectarVariable("emisor_direccion", "Av. Andalucía 35");
+                    InyectarVariable("emisor_cp_ciudad", "29001 Málaga");
+                    InyectarVariable("emisor_telefono", "900 123 456");
+                    InyectarVariable("emisor_cuenta", "ES21 1234 5678 90 1234567890");
+                    // ---------------------------
 
                     reporte.Show();
                 }
@@ -551,6 +591,10 @@ namespace FacturacionDAM.Formularios
                     Program.appDAM.RegistrarLog("Imprimir Factura", ex.Message);
                     MessageBox.Show("Error al lanzar el informe de la factura: " + ex.Message);
                 }
+            }
+            else
+            {
+                MessageBox.Show("Error al obtener los datos de la factura en la base de datos.", "Error SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

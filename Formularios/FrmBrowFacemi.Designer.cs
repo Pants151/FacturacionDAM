@@ -60,11 +60,11 @@
             tsBtnExportXML = new ToolStripButton();
             toolStripSeparator4 = new ToolStripSeparator();
             tsBtnInforme = new ToolStripButton();
+            tsBtnImpSinRet = new ToolStripButton();
             tsBtnImpConRet = new ToolStripButton();
             toolStripSeparator5 = new ToolStripSeparator();
             toolStripLabel1 = new ToolStripLabel();
             tsComboYear = new ToolStripComboBox();
-            tsBtnImpSinRet = new ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)splitContainerFacemi).BeginInit();
             splitContainerFacemi.Panel1.SuspendLayout();
             splitContainerFacemi.Panel2.SuspendLayout();
@@ -355,7 +355,7 @@
             tsBtnExportCSV.ImageTransparentColor = Color.Magenta;
             tsBtnExportCSV.Name = "tsBtnExportCSV";
             tsBtnExportCSV.Size = new Size(24, 24);
-            tsBtnExportCSV.Text = "toolStripButton1";
+            tsBtnExportCSV.Text = "Exportar a CSV";
             tsBtnExportCSV.ToolTipText = "Exportar a formato CSV";
             tsBtnExportCSV.Click += tsBtnExportCSV_Click;
             // 
@@ -366,7 +366,7 @@
             tsBtnExportXML.ImageTransparentColor = Color.Magenta;
             tsBtnExportXML.Name = "tsBtnExportXML";
             tsBtnExportXML.Size = new Size(24, 24);
-            tsBtnExportXML.Text = "toolStripButton1";
+            tsBtnExportXML.Text = "Exportar a XML";
             tsBtnExportXML.ToolTipText = "Exportar a formato XML";
             tsBtnExportXML.Click += tsBtnExportXML_Click;
             // 
@@ -383,8 +383,18 @@
             tsBtnInforme.ImageTransparentColor = Color.Magenta;
             tsBtnInforme.Name = "tsBtnInforme";
             tsBtnInforme.Size = new Size(24, 24);
-            tsBtnInforme.Text = "Informe de Facturas Emitidas entre dos fechas";
+            tsBtnInforme.Text = "Generar un informe de facturas entre fechas";
             tsBtnInforme.Click += tsBtnInforme_Click;
+            // 
+            // tsBtnImpSinRet
+            // 
+            tsBtnImpSinRet.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsBtnImpSinRet.Image = (Image)resources.GetObject("tsBtnImpSinRet.Image");
+            tsBtnImpSinRet.ImageTransparentColor = Color.Magenta;
+            tsBtnImpSinRet.Name = "tsBtnImpSinRet";
+            tsBtnImpSinRet.Size = new Size(24, 24);
+            tsBtnImpSinRet.Text = "Generar factura (Sin retención)";
+            tsBtnImpSinRet.Click += tsBtnImpSinRet_Click;
             // 
             // tsBtnImpConRet
             // 
@@ -393,7 +403,7 @@
             tsBtnImpConRet.ImageTransparentColor = Color.Magenta;
             tsBtnImpConRet.Name = "tsBtnImpConRet";
             tsBtnImpConRet.Size = new Size(24, 24);
-            tsBtnImpConRet.Text = "Factura Emitida (Con retención)";
+            tsBtnImpConRet.Text = "Generar factura (Con retención)";
             tsBtnImpConRet.Click += tsBtnImpConRet_Click;
             // 
             // toolStripSeparator5
@@ -415,16 +425,6 @@
             tsComboYear.Name = "tsComboYear";
             tsComboYear.Size = new Size(75, 27);
             tsComboYear.SelectedIndexChanged += tsComboYear_SelectedIndexChanged;
-            // 
-            // tsBtnImpSinRet
-            // 
-            tsBtnImpSinRet.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            tsBtnImpSinRet.Image = (Image)resources.GetObject("tsBtnImpSinRet.Image");
-            tsBtnImpSinRet.ImageTransparentColor = Color.Magenta;
-            tsBtnImpSinRet.Name = "tsBtnImpSinRet";
-            tsBtnImpSinRet.Size = new Size(24, 24);
-            tsBtnImpSinRet.Text = "Factura Emitida (Sin retención)";
-            tsBtnImpSinRet.Click += tsBtnImpSinRet_Click;
             // 
             // FrmBrowFacemi
             // 

@@ -333,14 +333,17 @@
             // 
             // tsBtnExportCSV
             // 
+            tsBtnExportCSV.Image = Properties.Resources.importar_excel_1;
             tsBtnExportCSV.Name = "tsBtnExportCSV";
-            tsBtnExportCSV.Size = new Size(23, 24);
+            tsBtnExportCSV.Size = new Size(24, 24);
+            tsBtnExportCSV.Click += tsBtnExportCSV_Click;
             // 
             // tsBtnExportXML
             // 
             tsBtnExportXML.Image = (Image)resources.GetObject("tsBtnExportXML.Image");
             tsBtnExportXML.Name = "tsBtnExportXML";
             tsBtnExportXML.Size = new Size(24, 24);
+            tsBtnExportXML.Click += tsBtnExportXML_Click;
             // 
             // PnFacrec
             // 

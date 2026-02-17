@@ -1,4 +1,5 @@
 ﻿using FacturacionDAM.Modelos;
+using FacturacionDAM.Utils;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -160,6 +161,42 @@ namespace FacturacionDAM.Formularios
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void tsBtnExportCSV_Click(object sender, EventArgs e)
+        {
+            if (_bsLineasFactura == null || _bsLineasFactura.Count == 0)
+            {
+                MessageBox.Show("No hay líneas en esta factura para exportar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Archivo CSV (*.csv)|*.csv";
+            sfd.FileName = $"Lineas_Factura_{txtNumero.Text}.csv"; // Nombre sugerido
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                ExportarDatos.ExportarCSV((DataTable)_bsLineasFactura.DataSource, sfd.FileName);
+            }
+        }
+
+        private void tsBtnExportXML_Click(object sender, EventArgs e)
+        {
+            if (_bsLineasFactura == null || _bsLineasFactura.Count == 0)
+            {
+                MessageBox.Show("No hay líneas en esta factura para exportar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Archivo XML (*.xml)|*.xml";
+            sfd.FileName = $"Lineas_Factura_{txtNumero.Text}.xml"; // Nombre sugerido
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                ExportarDatos.ExportarXML((DataTable)_bsLineasFactura.DataSource, sfd.FileName, "LineasFactura");
+            }
         }
 
         #endregion

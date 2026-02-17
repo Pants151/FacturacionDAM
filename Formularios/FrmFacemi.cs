@@ -458,7 +458,6 @@ namespace FacturacionDAM.Formularios
             if (_tablaLineasFactura?.LaTabla == null || _bsFactura.Current == null) return;
 
             // Forzamos el guardado de los controles antes de resetear ---
-            // Si no hacemos esto, ResetCurrentItem borrará lo que acabas de cambiar
             chkRetencion.DataBindings["Checked"]?.WriteValue();
             numTipoRet.DataBindings["Value"]?.WriteValue();
             // ---------------------------------------------------------------------
@@ -473,12 +472,13 @@ namespace FacturacionDAM.Formularios
                     cuotaSum += fila.Field<decimal>("cuota");
                 }
             }
-            decimal total = baseSum + cuotaSum;
 
-            // Nota: Como ya hemos hecho WriteValue arriba, ahora row["aplicaret"] ya tiene el valor correcto
-            // pero seguimos usando los controles para el cálculo local por seguridad.
+            // PRIMERO calculamos la retención
             decimal tipoRet = chkRetencion.Checked ? numTipoRet.Value : 0;
             decimal retencion = Math.Round(baseSum * (tipoRet / 100), 2);
+
+            // DESPUÉS calculamos el total restando la retención
+            decimal total = baseSum + cuotaSum - retencion;
 
             DataRowView row = (DataRowView)_bsFactura.Current;
             row["base"] = baseSum;
@@ -486,7 +486,7 @@ namespace FacturacionDAM.Formularios
             row["total"] = total;
             row["retencion"] = retencion;
 
-            // Esto refresca los Labels de totales
+            // Esto refresca los Labels de totales en la pantalla
             _bsFactura.ResetCurrentItem();
         }
 
