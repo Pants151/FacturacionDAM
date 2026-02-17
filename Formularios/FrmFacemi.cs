@@ -250,9 +250,9 @@ namespace FacturacionDAM.Formularios
                 else
                 {
                     ForzarValoresNoNulos();
-                    //this.ValidateChildren();         // Fuerza a que todos los controles acutalicen sus bindings.
+                    this.ValidateChildren();         // Fuerza a que todos los controles acutalicen sus bindings.
                     _bsFactura.EndEdit();            // Guarda en memoria
-                    _tablaFactura.GuardarCambios();  // ✔ Guarda en BD
+                    _tablaFactura.GuardarCambios();  // Guarda en BD
 
                     if (!modoEdicion)
                     {
@@ -263,6 +263,22 @@ namespace FacturacionDAM.Formularios
                             idFactura = Convert.ToInt32(res);
                         }
                         ActualizarNumeracionEmisorSiEsNuevaFactura();
+
+                        modoEdicion = true; // Le decimos al programa que ya estamos editando
+
+                        // Actualizamos el ID real en la memoria del programa
+                        if (_bsFactura.Current is DataRowView row)
+                        {
+                            row["id"] = idFactura;
+
+                            // Esto "consolida" el nuevo ID en la tabla local.
+                            row.Row.AcceptChanges();
+                        }
+
+                        // Recargamos la configuración de la tabla para que busque el nuevo ID
+                        CargarLineasFacturaExistente();
+
+                        // ------------------------------------
                     }
 
                     return true;
@@ -358,7 +374,7 @@ namespace FacturacionDAM.Formularios
         private void CargarLineasFacturaExistente()
         {
             int idFacemi = Convert.ToInt32((_bsFactura.Current as DataRowView)["id"]);
-            string mSql = $"SELECT * FROM facemilin WHERE idfacemi = {idFacemi}";
+            string mSql = $"SELECT * FROM facemilin WHERE idfacemi = {idFactura}";
             if (_tablaLineasFactura.InicializarDatos(mSql))
                 _bsLineasFactura.DataSource = _tablaLineasFactura.LaTabla;
         }
@@ -492,29 +508,6 @@ namespace FacturacionDAM.Formularios
 
                 if (row["pagada"] == DBNull.Value)
                     row["pagada"] = chkPagada.Checked ? 1 : 0;
-
-                /*
-                // Obligatorios
-                if (row["idemisor"] == DBNull.Value)
-                    row["idemisor"] = _idEmisor;
-                if (row["idcliente"] == DBNull.Value)
-                    row["idcliente"] = _idCliente;
-                if (row["idconceptofac"] == DBNull.Value)
-                    row["idconceptofac"] = 1; // o el que corresponda
-                if (row["descripcion"] == DBNull.Value)
-                    row["descripcion"] = "";
-
-                // Valores numéricos
-                if (row["base"] == DBNull.Value)
-                    row["base"] = 0m;
-                if (row["cuota"] == DBNull.Value)
-                    row["cuota"] = 0m;
-                if (row["total"] == DBNull.Value)
-                    row["total"] = 0m;
-                if (row["retencion"] == DBNull.Value)
-                    row["retencion"] = 0m;
-                */
-
             }
         }
 

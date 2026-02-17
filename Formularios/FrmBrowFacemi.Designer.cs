@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmBrowFacemi));
             splitContainerFacemi = new SplitContainer();
             pnClientes = new Panel();
@@ -59,10 +59,13 @@
             tsBtnExportCSV = new ToolStripButton();
             tsBtnExportXML = new ToolStripButton();
             toolStripSeparator4 = new ToolStripSeparator();
-            toolStripLabel1 = new ToolStripLabel();
-            tsComboYear = new ToolStripComboBox();
             tsBtnInforme = new ToolStripButton();
             toolStripSeparator5 = new ToolStripSeparator();
+            toolStripLabel1 = new ToolStripLabel();
+            tsComboYear = new ToolStripComboBox();
+            tsBtnInforme2 = new ToolStripButton();
+            tsBtnInforme3 = new ToolStripButton();
+            tsBtnInforme4 = new ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)splitContainerFacemi).BeginInit();
             splitContainerFacemi.Panel1.SuspendLayout();
             splitContainerFacemi.Panel2.SuspendLayout();
@@ -161,14 +164,14 @@
             // 
             dgFacturas.AllowUserToAddRows = false;
             dgFacturas.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.LightGray;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            dataGridViewCellStyle4.ForeColor = Color.White;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgFacturas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.LightGray;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgFacturas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgFacturas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgFacturas.Dock = DockStyle.Fill;
             dgFacturas.Location = new Point(0, 44);
@@ -251,7 +254,7 @@
             // tsHerramientas
             // 
             tsHerramientas.ImageScalingSize = new Size(20, 20);
-            tsHerramientas.Items.AddRange(new ToolStripItem[] { tsBtnNew, tsBtnEdit, toolStripSeparator1, tsBtnDelete, toolStripSeparator2, tsBtnFirst, tsBtnPrev, tsBtnNext, tsBtnLast, toolStripSeparator3, tsBtnExportCSV, tsBtnExportXML, toolStripSeparator4, tsBtnInforme, toolStripSeparator5, toolStripLabel1, tsComboYear });
+            tsHerramientas.Items.AddRange(new ToolStripItem[] { tsBtnNew, tsBtnEdit, toolStripSeparator1, tsBtnDelete, toolStripSeparator2, tsBtnFirst, tsBtnPrev, tsBtnNext, tsBtnLast, toolStripSeparator3, tsBtnExportCSV, tsBtnExportXML, toolStripSeparator4, tsBtnInforme, tsBtnInforme2, tsBtnInforme3, tsBtnInforme4, toolStripSeparator5, toolStripLabel1, tsComboYear });
             tsHerramientas.Location = new Point(0, 0);
             tsHerramientas.Name = "tsHerramientas";
             tsHerramientas.Size = new Size(560, 27);
@@ -374,6 +377,22 @@
             toolStripSeparator4.Name = "toolStripSeparator4";
             toolStripSeparator4.Size = new Size(6, 27);
             // 
+            // tsBtnInforme
+            // 
+            tsBtnInforme.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsBtnInforme.Image = (Image)resources.GetObject("tsBtnInforme.Image");
+            tsBtnInforme.ImageTransparentColor = Color.Magenta;
+            tsBtnInforme.Name = "tsBtnInforme";
+            tsBtnInforme.Size = new Size(24, 24);
+            tsBtnInforme.Text = "Informe de Facturas Emitidas entre dos fechas";
+            tsBtnInforme.Click += tsBtnInforme_Click;
+            // 
+            // toolStripSeparator5
+            // 
+            toolStripSeparator5.Margin = new Padding(5, 0, 0, 0);
+            toolStripSeparator5.Name = "toolStripSeparator5";
+            toolStripSeparator5.Size = new Size(6, 27);
+            // 
             // toolStripLabel1
             // 
             toolStripLabel1.Name = "toolStripLabel1";
@@ -388,22 +407,32 @@
             tsComboYear.Size = new Size(75, 27);
             tsComboYear.SelectedIndexChanged += tsComboYear_SelectedIndexChanged;
             // 
-            // tsBtnInforme
+            // tsBtnInforme2
             // 
-            tsBtnInforme.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            tsBtnInforme.Image = (Image)resources.GetObject("tsBtnInforme.Image");
-            tsBtnInforme.ImageTransparentColor = Color.Magenta;
-            tsBtnInforme.Name = "tsBtnInforme";
-            tsBtnInforme.Padding = new Padding(20, 0, 0, 0);
-            tsBtnInforme.Size = new Size(44, 24);
-            tsBtnInforme.Text = "Generar Informe";
-            tsBtnInforme.Click += tsBtnInforme_Click;
+            tsBtnInforme2.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsBtnInforme2.Image = (Image)resources.GetObject("tsBtnInforme2.Image");
+            tsBtnInforme2.ImageTransparentColor = Color.Magenta;
+            tsBtnInforme2.Name = "tsBtnInforme2";
+            tsBtnInforme2.Size = new Size(24, 24);
+            tsBtnInforme2.Text = "Informe de Facturas Emitidas entre dos fechas agrupadas por clientes";
             // 
-            // toolStripSeparator5
+            // tsBtnInforme3
             // 
-            toolStripSeparator5.Margin = new Padding(5, 0, 0, 0);
-            toolStripSeparator5.Name = "toolStripSeparator5";
-            toolStripSeparator5.Size = new Size(6, 27);
+            tsBtnInforme3.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsBtnInforme3.Image = (Image)resources.GetObject("tsBtnInforme3.Image");
+            tsBtnInforme3.ImageTransparentColor = Color.Magenta;
+            tsBtnInforme3.Name = "tsBtnInforme3";
+            tsBtnInforme3.Size = new Size(24, 24);
+            tsBtnInforme3.Text = "Informe de Factura seleccionada (Sin retenciones)";
+            // 
+            // tsBtnInforme4
+            // 
+            tsBtnInforme4.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsBtnInforme4.Image = (Image)resources.GetObject("tsBtnInforme4.Image");
+            tsBtnInforme4.ImageTransparentColor = Color.Magenta;
+            tsBtnInforme4.Name = "tsBtnInforme4";
+            tsBtnInforme4.Size = new Size(24, 24);
+            tsBtnInforme4.Text = "Informe de Factura seleccionada (Con retenciones)";
             // 
             // FrmBrowFacemi
             // 
@@ -472,5 +501,8 @@
         private ToolStripStatusLabel tsLbTotalAnual;
         private ToolStripButton tsBtnInforme;
         private ToolStripSeparator toolStripSeparator5;
+        private ToolStripButton tsBtnInforme2;
+        private ToolStripButton tsBtnInforme3;
+        private ToolStripButton tsBtnInforme4;
     }
 }

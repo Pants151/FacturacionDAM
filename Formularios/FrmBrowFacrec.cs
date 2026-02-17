@@ -342,9 +342,9 @@ namespace FacturacionDAM.Formularios
 
             // Consulta que filtra por proveedor ESPECÍFICO y AÑO
             string mSql = $@"SELECT SUM(base), SUM(cuota), SUM(total) FROM facrec 
-                    WHERE idproveedor = {idSeleccionado} 
-                    AND idemisor = {Program.appDAM.emisor.id} 
-                    AND YEAR(fecha) = {aAnho}";
+            WHERE idproveedor = {idSeleccionado} 
+            AND idempresa = {Program.appDAM.emisor.id} 
+            AND YEAR(fecha) = {aAnho}";
 
             Tabla tTmp = new Tabla(Program.appDAM.LaConexion);
             if (tTmp.InicializarDatos(mSql) && tTmp.LaTabla.Rows.Count > 0)

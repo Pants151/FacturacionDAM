@@ -174,26 +174,38 @@ namespace FacturacionDAM.Formularios
             {
                 RecalcularTotales();
 
-                // Comprobamos que la descripción no esté vacía antes de enviar a la BD
+                // Comprobamos que los datos sean válidos antes de enviar a la BD
                 if (!ValidarDatos()) return false;
 
                 ForzarValoresNoNulos();
                 _bsFactura.EndEdit();
 
-                // Guardamos la cabecera
+                // Guardamos la cabecera de la factura en BD (si es nueva, hace INSERT)
                 _tablaFactura.GuardarCambios();
 
                 if (!modoEdicion)
                 {
-                    // Recuperamos el ID generado para las líneas
+                    // Recuperamos el ID autogenerado para esta factura
                     using (var cmd = new MySqlCommand("SELECT LAST_INSERT_ID()", Program.appDAM.LaConexion))
                     {
                         idFactura = Convert.ToInt32(cmd.ExecuteScalar());
                     }
-                    modoEdicion = true;
+
+                    modoEdicion = true; // Pasamos a modo edición
+
+                    if (_bsFactura.Current is DataRowView row)
+                    {
+                        row["id"] = idFactura;
+
+                        // Consolidamos el cambio de ID para evitar el Concurrency Violation en el próximo guardado
+                        row.Row.AcceptChanges();
+                    }
+
+                    // Recargamos el enlace de las líneas apuntando al nuevo idFactura
+                    CargarLineasFacturaExistente();
                 }
 
-                // Solo intentamos guardar líneas si hay alguna
+                // Guardamos las líneas si hay alguna
                 if (_bsLineasFactura.Count > 0)
                 {
                     _tablaLineasFactura.GuardarCambios();
