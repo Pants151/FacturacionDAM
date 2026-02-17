@@ -1,6 +1,7 @@
 ﻿using FacturacionDAM.Modelos;
 using FacturacionDAM.Utils;
 using MySqlX.XDevAPI.Relational;
+using Stimulsoft.Report;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -271,6 +272,30 @@ namespace FacturacionDAM.Formularios
             frm.ShowDialog();
         }
 
+        // Botón para imprimir SIN Retención
+        private void tsBtnImpSinRet_Click(object sender, EventArgs e)
+        {
+            GenerarInformeFacturaIndividual(false);
+        }
+
+        // Botón para imprimir CON Retención
+        private void tsBtnImpConRet_Click(object sender, EventArgs e)
+        {
+            if (_bsFacturas.Current is DataRowView row)
+            {
+                bool aplicaRet = Convert.ToBoolean(row["aplicaret"]);
+                decimal tipoRet = row["tiporet"] != DBNull.Value ? Convert.ToDecimal(row["tiporet"]) : 0m;
+
+                if (!aplicaRet || tipoRet == 0m)
+                {
+                    MessageBox.Show("Esta factura no tiene marcada la aplicación de retención o no tiene un porcentaje especificado.\nNo se puede generar este informe.",
+                        "Validación de informe", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                GenerarInformeFacturaIndividual(true);
+            }
+        }
         #endregion
 
         #region Métodos personales
@@ -470,9 +495,65 @@ namespace FacturacionDAM.Formularios
             tsLbTotalAnual.Text = $"Base: {baseTotal:N2} € | Cuota: {cuotaTotal:N2} € | TOTAL: {totalFacturado:N2} €";
         }
 
+        // Método para generar el informe de una factura individual, con o sin retención según el parámetro pasado.
+        private void GenerarInformeFacturaIndividual(bool conRetencion)
+        {
+            if (!(_bsFacturas.Current is DataRowView row)) return;
+
+            int idFactura = Convert.ToInt32(row["id"]);
+
+            string sql = $@"
+                SELECT 
+                    f.numero AS Numero, f.fecha AS Fecha, f.descripcion AS DescripcionFactura, 
+                    f.base AS BaseFra, f.cuota AS CuotaFra, f.total AS TotalFra, f.retencion AS RetencionFra, f.tiporet AS TipoRetencion,
+                    c.nombrecomercial AS ClienteNombre, c.nifcif AS ClienteNif, c.direccion AS ClienteDireccion, c.poblacion AS ClienteCiudad, c.telefono AS ClienteTelefono,
+                    l.cantidad AS Unidades, l.descripcion AS LineaDesc, l.precio AS Precio, l.tipoiva AS TipoIVA, l.cuota AS CuotaIVA, (l.base + l.cuota) AS TotalLinea
+                FROM facemi f
+                JOIN clientes c ON f.idcliente = c.id
+                JOIN facemilin l ON f.idfacemi = f.id
+                WHERE f.id = {idFactura}";
+
+            Tabla tFactura = new Tabla(Program.appDAM.LaConexion);
+
+            if (tFactura.InicializarDatos(sql))
+            {
+                try
+                {
+                    StiReport reporte = new StiReport();
+
+                    // Elegimos el diseño según el botón que hayamos pulsado
+                    string rutaReporte = conRetencion ? "Informes/FacturaConRetencion.mrt" : "Informes/FacturaSinRetencion.mrt";
+                    reporte.Load(rutaReporte);
+
+                    reporte.Dictionary.Databases.Clear();
+
+                    var ds = new DataSet();
+                    ds.Tables.Add(tFactura.LaTabla.Copy());
+                    ds.Tables[0].TableName = "DatosFactura";
+
+                    reporte.RegData(ds);
+                    reporte.Dictionary.Synchronize();
+
+                    // Variables globales del Emisor (Datos reales)
+                    reporte.Dictionary.Variables["emisor_nombre"].Value = Program.appDAM.emisor.nombreComercial;
+                    reporte.Dictionary.Variables["emisor_nif"].Value = Program.appDAM.emisor.nifcif;
+
+                    // Datos ficticios de estética para rellenar la factura
+                    reporte.Dictionary.Variables["emisor_direccion"].Value = "Av. Andalucía 35";
+                    reporte.Dictionary.Variables["emisor_cp_ciudad"].Value = "29001 Málaga";
+                    reporte.Dictionary.Variables["emisor_telefono"].Value = "900 123 456";
+                    reporte.Dictionary.Variables["emisor_cuenta"].Value = "ES21 1234 5678 90 1234567890";
+
+                    reporte.Show();
+                }
+                catch (Exception ex)
+                {
+                    Program.appDAM.RegistrarLog("Imprimir Factura", ex.Message);
+                    MessageBox.Show("Error al lanzar el informe de la factura: " + ex.Message);
+                }
+            }
+        }
+
         #endregion
-
-
-        
     }
 }
