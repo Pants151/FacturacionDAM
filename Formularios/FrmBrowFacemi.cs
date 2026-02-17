@@ -254,6 +254,23 @@ namespace FacturacionDAM.Formularios
                 ExportarDatos.ExportarXML((DataTable)_bsFacturas.DataSource, sfd.FileName, "Facturas Emitidas");
         }
 
+        private void tsBtnInforme_Click(object sender, EventArgs e)
+        {
+            DateTime fechaInicial = new DateTime(_year.CurrentYear, 1, 1);
+            DateTime fechaFinal = new DateTime(_year.CurrentYear, 12, 31);
+            FrmInformFacemiAnual frm = new FrmInformFacemiAnual();
+
+            frm.fecha_inicio.MinDate = fechaInicial;
+            frm.fecha_inicio.MaxDate = fechaFinal;
+            frm.fecha_inicio.Value = fechaInicial;
+
+            frm.fecha_final.MinDate = fechaInicial;
+            frm.fecha_final.MaxDate = fechaFinal;
+            frm.fecha_final.Value = fechaFinal;
+
+            frm.ShowDialog();
+        }
+
         #endregion
 
         #region Métodos personales
@@ -456,5 +473,6 @@ namespace FacturacionDAM.Formularios
         #endregion
 
 
+        
     }
 }
