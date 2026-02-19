@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace FacturacionDAM.Formularios
 {
@@ -73,7 +74,7 @@ namespace FacturacionDAM.Formularios
 
         private bool ValidarDatos()
         {
-            // 1. NIF/CIF y nombrecomercial no pueden estar vacíos
+            // NIF/CIF y nombrecomercial no pueden estar vacíos
             if (string.IsNullOrWhiteSpace(txtNifCif.Text))
             {
                 MessageBox.Show("El campo NIF/CIF es obligatorio.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -88,20 +89,55 @@ namespace FacturacionDAM.Formularios
                 return false;
             }
 
-            // 2. Email válido si se ha introducido
+            // Formato del NIF/CIF (Debe tener 9 caracteres alfanuméricos)
+            string nifCif = txtNifCif.Text.Trim().ToUpper();
+            if (!Regex.IsMatch(nifCif, @"^[A-Z0-9]{9}$"))
+            {
+                MessageBox.Show("El formato del NIF/CIF no es válido. Debe contener exactamente 9 caracteres (letras y números).", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNifCif.Focus();
+                return false;
+            }
+
+            // Validación de NIF duplicado en la tabla CORRECTA ('proveedores')
+            if (NifDuplicado(nifCif))
+            {
+                MessageBox.Show("El NIF/CIF introducido ya pertenece a otro proveedor.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNifCif.Focus();
+                return false;
+            }
+
+            // Código Postal (Opcional, pero si se pone deben ser 5 dígitos numéricos)
+            string cp = txtCp.Text.Trim();
+            if (!string.IsNullOrEmpty(cp) && !Regex.IsMatch(cp, @"^\d{5}$"))
+            {
+                MessageBox.Show("El Código Postal debe tener exactamente 5 dígitos numéricos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtCp.Focus();
+                return false;
+            }
+
+            // Teléfonos (Opcionales, pero si se ponen deben ser 9 dígitos)
+            string tel1 = txtTel1.Text.Trim();
+            if (!string.IsNullOrEmpty(tel1) && !Regex.IsMatch(tel1, @"^\d{9}$"))
+            {
+                MessageBox.Show("El Teléfono 1 debe tener exactamente 9 dígitos numéricos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTel1.Focus();
+                return false;
+            }
+
+            string tel2 = txtTel2.Text.Trim();
+            if (!string.IsNullOrEmpty(tel2) && !Regex.IsMatch(tel2, @"^\d{9}$"))
+            {
+                MessageBox.Show("El Teléfono 2 debe tener exactamente 9 dígitos numéricos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTel2.Focus();
+                return false;
+            }
+
+            // Email válido si se ha introducido
             string email = txtEmail.Text.Trim();
             if (!string.IsNullOrEmpty(email) && !Validaciones.EsEmailValido(email))
             {
                 MessageBox.Show("El formato del email no es válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtEmail.Focus();
-                return false;
-            }
-
-            // 3. Validación de NIF duplicado en la tabla CORRECTA ('proveedores')
-            if (NifDuplicado(txtNifCif.Text.Trim()))
-            {
-                MessageBox.Show("El NIF/CIF introducido ya pertenece a otro proveedor.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtNifCif.Focus();
                 return false;
             }
 

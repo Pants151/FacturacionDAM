@@ -83,7 +83,7 @@
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Padding = new Padding(10, 0, 10, 0);
             btnCancelar.Size = new Size(100, 36);
-            btnCancelar.TabIndex = 1;
+            btnCancelar.TabIndex = 12;
             btnCancelar.Text = "Cancelar";
             btnCancelar.TextAlign = ContentAlignment.MiddleRight;
             btnCancelar.UseVisualStyleBackColor = true;
@@ -97,7 +97,7 @@
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Padding = new Padding(10, 0, 10, 0);
             btnAceptar.Size = new Size(100, 36);
-            btnAceptar.TabIndex = 0;
+            btnAceptar.TabIndex = 11;
             btnAceptar.Text = "Aceptar";
             btnAceptar.TextAlign = ContentAlignment.MiddleRight;
             btnAceptar.UseVisualStyleBackColor = true;
@@ -132,9 +132,10 @@
             // txtEmail
             // 
             txtEmail.Location = new Point(105, 63);
+            txtEmail.MaxLength = 100;
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(443, 23);
-            txtEmail.TabIndex = 5;
+            txtEmail.TabIndex = 10;
             // 
             // label13
             // 
@@ -151,16 +152,16 @@
             txtTel2.MaxLength = 20;
             txtTel2.Name = "txtTel2";
             txtTel2.Size = new Size(161, 23);
-            txtTel2.TabIndex = 3;
+            txtTel2.TabIndex = 9;
             // 
             // label12
             // 
             label12.Location = new Point(313, 30);
             label12.Name = "label12";
-            label12.Size = new Size(64, 15);
+            label12.Size = new Size(68, 15);
             label12.TabIndex = 2;
             label12.Text = "Teléfono 2:";
-            label12.TextAlign = ContentAlignment.MiddleRight;
+            label12.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // txtTel1
             // 
@@ -168,7 +169,7 @@
             txtTel1.MaxLength = 20;
             txtTel1.Name = "txtTel1";
             txtTel1.Size = new Size(161, 23);
-            txtTel1.TabIndex = 1;
+            txtTel1.TabIndex = 8;
             // 
             // label11
             // 
@@ -216,9 +217,10 @@
             // txtPob
             // 
             txtPob.Location = new Point(105, 61);
+            txtPob.MaxLength = 100;
             txtPob.Name = "txtPob";
             txtPob.Size = new Size(335, 23);
-            txtPob.TabIndex = 5;
+            txtPob.TabIndex = 6;
             // 
             // label9
             // 
@@ -235,7 +237,7 @@
             txtCp.MaxLength = 5;
             txtCp.Name = "txtCp";
             txtCp.Size = new Size(75, 23);
-            txtCp.TabIndex = 3;
+            txtCp.TabIndex = 5;
             // 
             // label8
             // 
@@ -249,10 +251,11 @@
             // txtDomicilio
             // 
             txtDomicilio.Location = new Point(105, 27);
+            txtDomicilio.MaxLength = 150;
             txtDomicilio.Name = "txtDomicilio";
             txtDomicilio.PlaceholderText = "Calle, número, planta, ...";
             txtDomicilio.Size = new Size(418, 23);
-            txtDomicilio.TabIndex = 1;
+            txtDomicilio.TabIndex = 4;
             // 
             // label7
             // 
@@ -284,16 +287,18 @@
             // txtApellidos
             // 
             txtApellidos.Location = new Point(472, 57);
+            txtApellidos.MaxLength = 100;
             txtApellidos.Name = "txtApellidos";
             txtApellidos.Size = new Size(245, 23);
-            txtApellidos.TabIndex = 7;
+            txtApellidos.TabIndex = 3;
             // 
             // txtNombre
             // 
             txtNombre.Location = new Point(472, 25);
+            txtNombre.MaxLength = 50;
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(156, 23);
-            txtNombre.TabIndex = 6;
+            txtNombre.TabIndex = 1;
             // 
             // label3
             // 
@@ -316,16 +321,18 @@
             // txtNombreComercial
             // 
             txtNombreComercial.Location = new Point(105, 57);
+            txtNombreComercial.MaxLength = 100;
             txtNombreComercial.Name = "txtNombreComercial";
             txtNombreComercial.Size = new Size(272, 23);
-            txtNombreComercial.TabIndex = 3;
+            txtNombreComercial.TabIndex = 2;
             // 
             // txtNifCif
             // 
             txtNifCif.Location = new Point(105, 25);
+            txtNifCif.MaxLength = 9;
             txtNifCif.Name = "txtNifCif";
             txtNifCif.Size = new Size(121, 23);
-            txtNifCif.TabIndex = 2;
+            txtNifCif.TabIndex = 0;
             // 
             // label2
             // 

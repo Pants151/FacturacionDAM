@@ -84,7 +84,7 @@
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Padding = new Padding(10, 0, 10, 0);
             btnCancelar.Size = new Size(100, 36);
-            btnCancelar.TabIndex = 1;
+            btnCancelar.TabIndex = 7;
             btnCancelar.Text = "Cancelar";
             btnCancelar.TextAlign = ContentAlignment.MiddleRight;
             btnCancelar.UseVisualStyleBackColor = true;
@@ -98,7 +98,7 @@
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Padding = new Padding(10, 0, 10, 0);
             btnAceptar.Size = new Size(100, 36);
-            btnAceptar.TabIndex = 0;
+            btnAceptar.TabIndex = 6;
             btnAceptar.Text = "Aceptar";
             btnAceptar.TextAlign = ContentAlignment.MiddleRight;
             btnAceptar.UseVisualStyleBackColor = true;
@@ -228,7 +228,7 @@
             numCantidad.Maximum = new decimal(new int[] { 9999, 0, 0, 131072 });
             numCantidad.Name = "numCantidad";
             numCantidad.Size = new Size(94, 23);
-            numCantidad.TabIndex = 33;
+            numCantidad.TabIndex = 5;
             numCantidad.TextAlign = HorizontalAlignment.Right;
             // 
             // label4
@@ -249,7 +249,7 @@
             numTipoIva.Maximum = new decimal(new int[] { 9999, 0, 0, 131072 });
             numTipoIva.Name = "numTipoIva";
             numTipoIva.Size = new Size(64, 23);
-            numTipoIva.TabIndex = 31;
+            numTipoIva.TabIndex = 4;
             numTipoIva.TextAlign = HorizontalAlignment.Right;
             // 
             // label5
@@ -279,7 +279,7 @@
             numPrecio.Maximum = new decimal(new int[] { 99999, 0, 0, 131072 });
             numPrecio.Name = "numPrecio";
             numPrecio.Size = new Size(95, 23);
-            numPrecio.TabIndex = 27;
+            numPrecio.TabIndex = 3;
             numPrecio.TextAlign = HorizontalAlignment.Right;
             // 
             // txtDescripcion
@@ -288,7 +288,7 @@
             txtDescripcion.MaxLength = 255;
             txtDescripcion.Name = "txtDescripcion";
             txtDescripcion.Size = new Size(511, 23);
-            txtDescripcion.TabIndex = 26;
+            txtDescripcion.TabIndex = 2;
             // 
             // label2
             // 
@@ -330,7 +330,7 @@
             BtnProducto.Name = "BtnProducto";
             BtnProducto.Padding = new Padding(14, 0, 10, 0);
             BtnProducto.Size = new Size(119, 32);
-            BtnProducto.TabIndex = 9;
+            BtnProducto.TabIndex = 1;
             BtnProducto.Text = "Trasladar";
             BtnProducto.TextAlign = ContentAlignment.MiddleRight;
             BtnProducto.UseVisualStyleBackColor = true;
@@ -352,7 +352,7 @@
             cbProducto.Location = new Point(116, 58);
             cbProducto.Name = "cbProducto";
             cbProducto.Size = new Size(334, 23);
-            cbProducto.TabIndex = 7;
+            cbProducto.TabIndex = 0;
             // 
             // label7
             // 

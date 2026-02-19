@@ -61,7 +61,7 @@
             btn_informe.Location = new Point(264, 91);
             btn_informe.Name = "btn_informe";
             btn_informe.Size = new Size(103, 26);
-            btn_informe.TabIndex = 3;
+            btn_informe.TabIndex = 2;
             btn_informe.Text = "Generar Informe";
             btn_informe.UseVisualStyleBackColor = true;
             btn_informe.Click += btn_informe_Click;
@@ -81,15 +81,15 @@
             fecha_final.Location = new Point(264, 44);
             fecha_final.Name = "fecha_final";
             fecha_final.Size = new Size(103, 23);
-            fecha_final.TabIndex = 4;
+            fecha_final.TabIndex = 1;
             // 
             // btn_informe_agrupado
             // 
             btn_informe_agrupado.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btn_informe_agrupado.Location = new Point(266, 156);
+            btn_informe_agrupado.Location = new Point(266, 126);
             btn_informe_agrupado.Name = "btn_informe_agrupado";
             btn_informe_agrupado.Size = new Size(101, 24);
-            btn_informe_agrupado.TabIndex = 6;
+            btn_informe_agrupado.TabIndex = 3;
             btn_informe_agrupado.Text = "Generar Informe";
             btn_informe_agrupado.UseVisualStyleBackColor = true;
             btn_informe_agrupado.Click += btn_informe_agrupado_Click;
@@ -106,7 +106,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(12, 161);
+            label4.Location = new Point(10, 126);
             label4.Name = "label4";
             label4.Size = new Size(248, 15);
             label4.TabIndex = 8;
@@ -116,7 +116,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(380, 206);
+            ClientSize = new Size(380, 159);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(btn_informe_agrupado);

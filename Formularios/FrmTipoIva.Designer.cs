@@ -49,22 +49,20 @@
             pnBtns.Controls.Add(btnCancelar);
             pnBtns.Controls.Add(btnAceptar);
             pnBtns.Dock = DockStyle.Bottom;
-            pnBtns.Location = new Point(0, 212);
-            pnBtns.Margin = new Padding(3, 4, 3, 4);
+            pnBtns.Location = new Point(0, 159);
             pnBtns.Name = "pnBtns";
-            pnBtns.Size = new Size(651, 84);
+            pnBtns.Size = new Size(570, 63);
             pnBtns.TabIndex = 4;
             // 
             // btnCancelar
             // 
             btnCancelar.Image = (Image)resources.GetObject("btnCancelar.Image");
             btnCancelar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCancelar.Location = new Point(328, 19);
-            btnCancelar.Margin = new Padding(3, 4, 3, 4);
+            btnCancelar.Location = new Point(287, 14);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Padding = new Padding(11, 0, 11, 0);
-            btnCancelar.Size = new Size(114, 48);
-            btnCancelar.TabIndex = 1;
+            btnCancelar.Padding = new Padding(10, 0, 10, 0);
+            btnCancelar.Size = new Size(100, 36);
+            btnCancelar.TabIndex = 5;
             btnCancelar.Text = "Cancelar";
             btnCancelar.TextAlign = ContentAlignment.MiddleRight;
             btnCancelar.UseVisualStyleBackColor = true;
@@ -74,12 +72,11 @@
             // 
             btnAceptar.Image = (Image)resources.GetObject("btnAceptar.Image");
             btnAceptar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAceptar.Location = new Point(152, 19);
-            btnAceptar.Margin = new Padding(3, 4, 3, 4);
+            btnAceptar.Location = new Point(133, 14);
             btnAceptar.Name = "btnAceptar";
-            btnAceptar.Padding = new Padding(11, 0, 11, 0);
-            btnAceptar.Size = new Size(114, 48);
-            btnAceptar.TabIndex = 0;
+            btnAceptar.Padding = new Padding(10, 0, 10, 0);
+            btnAceptar.Size = new Size(100, 36);
+            btnAceptar.TabIndex = 4;
             btnAceptar.Text = "Aceptar";
             btnAceptar.TextAlign = ContentAlignment.MiddleRight;
             btnAceptar.UseVisualStyleBackColor = true;
@@ -95,28 +92,29 @@
             pnData.Controls.Add(label2);
             pnData.Dock = DockStyle.Fill;
             pnData.Location = new Point(0, 0);
-            pnData.Margin = new Padding(3, 4, 3, 4);
             pnData.Name = "pnData";
-            pnData.Size = new Size(651, 212);
+            pnData.Size = new Size(570, 159);
             pnData.TabIndex = 0;
             // 
             // numUpDownPorcentaje
             // 
             numUpDownPorcentaje.DecimalPlaces = 2;
             numUpDownPorcentaje.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
-            numUpDownPorcentaje.Location = new Point(139, 75);
+            numUpDownPorcentaje.Location = new Point(122, 56);
+            numUpDownPorcentaje.Margin = new Padding(3, 2, 3, 2);
             numUpDownPorcentaje.Maximum = new decimal(new int[] { 9999, 0, 0, 131072 });
             numUpDownPorcentaje.Name = "numUpDownPorcentaje";
-            numUpDownPorcentaje.Size = new Size(69, 27);
+            numUpDownPorcentaje.Size = new Size(60, 23);
             numUpDownPorcentaje.TabIndex = 1;
             numUpDownPorcentaje.TextAlign = HorizontalAlignment.Center;
             // 
             // chkActivo
             // 
             chkActivo.AutoSize = true;
-            chkActivo.Location = new Point(139, 161);
+            chkActivo.Location = new Point(122, 121);
+            chkActivo.Margin = new Padding(3, 2, 3, 2);
             chkActivo.Name = "chkActivo";
-            chkActivo.Size = new Size(463, 24);
+            chkActivo.Size = new Size(366, 19);
             chkActivo.TabIndex = 3;
             chkActivo.Text = "¿Activo? Marca el checkbox si el tipo está activo en la actualidad.";
             chkActivo.UseVisualStyleBackColor = true;
@@ -125,34 +123,34 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(29, 24);
+            label3.Location = new Point(25, 18);
             label3.Name = "label3";
-            label3.Size = new Size(220, 28);
+            label3.Size = new Size(173, 21);
             label3.TabIndex = 9;
             label3.Text = "Gestión del Tipo de IVA:";
             // 
             // txtDescripcion
             // 
-            txtDescripcion.Location = new Point(139, 117);
-            txtDescripcion.Margin = new Padding(3, 4, 3, 4);
+            txtDescripcion.Location = new Point(122, 88);
+            txtDescripcion.MaxLength = 50;
             txtDescripcion.Name = "txtDescripcion";
-            txtDescripcion.Size = new Size(463, 27);
+            txtDescripcion.Size = new Size(406, 23);
             txtDescripcion.TabIndex = 2;
             // 
             // label1
             // 
-            label1.Location = new Point(31, 75);
+            label1.Location = new Point(27, 56);
             label1.Name = "label1";
-            label1.Size = new Size(98, 31);
+            label1.Size = new Size(86, 23);
             label1.TabIndex = 4;
             label1.Text = "Tipo:";
             label1.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label2
             // 
-            label2.Location = new Point(31, 117);
+            label2.Location = new Point(27, 88);
             label2.Name = "label2";
-            label2.Size = new Size(98, 31);
+            label2.Size = new Size(86, 23);
             label2.TabIndex = 5;
             label2.Text = "Descripción:";
             label2.TextAlign = ContentAlignment.MiddleRight;
@@ -160,14 +158,13 @@
             // FrmTipoIva
             // 
             AcceptButton = btnAceptar;
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancelar;
-            ClientSize = new Size(651, 296);
+            ClientSize = new Size(570, 222);
             Controls.Add(pnData);
             Controls.Add(pnBtns);
             FormBorderStyle = FormBorderStyle.Fixed3D;
-            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FrmTipoIva";

@@ -117,7 +117,7 @@
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Padding = new Padding(10, 0, 10, 0);
             btnCancelar.Size = new Size(100, 36);
-            btnCancelar.TabIndex = 1;
+            btnCancelar.TabIndex = 11;
             btnCancelar.Text = "Cancelar";
             btnCancelar.TextAlign = ContentAlignment.MiddleRight;
             btnCancelar.UseVisualStyleBackColor = true;
@@ -131,7 +131,7 @@
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Padding = new Padding(10, 0, 10, 0);
             btnAceptar.Size = new Size(100, 36);
-            btnAceptar.TabIndex = 0;
+            btnAceptar.TabIndex = 10;
             btnAceptar.Text = "Aceptar";
             btnAceptar.TextAlign = ContentAlignment.MiddleRight;
             btnAceptar.UseVisualStyleBackColor = true;
@@ -211,7 +211,7 @@
             dgLineasFactura.RowHeadersWidth = 51;
             dgLineasFactura.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgLineasFactura.Size = new Size(858, 267);
-            dgLineasFactura.TabIndex = 0;
+            dgLineasFactura.TabIndex = 9;
             dgLineasFactura.CellMouseDoubleClick += dgLineasFactura_CellMouseDoubleClick;
             // 
             // pnStatus
@@ -261,7 +261,7 @@
             tsHerramientas.Location = new Point(0, 0);
             tsHerramientas.Name = "tsHerramientas";
             tsHerramientas.Size = new Size(858, 27);
-            tsHerramientas.TabIndex = 0;
+            tsHerramientas.TabIndex = 8;
             tsHerramientas.Text = "toolStrip1";
             // 
             // tsBtnNew
@@ -479,7 +479,7 @@
             numTipoRet.Location = new Point(542, 98);
             numTipoRet.Name = "numTipoRet";
             numTipoRet.Size = new Size(60, 23);
-            numTipoRet.TabIndex = 10;
+            numTipoRet.TabIndex = 7;
             numTipoRet.TextAlign = HorizontalAlignment.Center;
             numTipoRet.Value = new decimal(new int[] { 15, 0, 0, 0 });
             numTipoRet.ValueChanged += numTipoRet_ValueChanged;
@@ -499,7 +499,7 @@
             chkRetencion.Location = new Point(292, 102);
             chkRetencion.Name = "chkRetencion";
             chkRetencion.Size = new Size(135, 19);
-            chkRetencion.TabIndex = 12;
+            chkRetencion.TabIndex = 6;
             chkRetencion.Text = "¿Se aplica retención?";
             chkRetencion.UseVisualStyleBackColor = true;
             chkRetencion.CheckedChanged += chkRetencion_CheckedChanged;
@@ -510,7 +510,7 @@
             chkPagada.Location = new Point(97, 102);
             chkPagada.Name = "chkPagada";
             chkPagada.Size = new Size(75, 19);
-            chkPagada.TabIndex = 13;
+            chkPagada.TabIndex = 5;
             chkPagada.Text = "¿Pagada?";
             chkPagada.UseVisualStyleBackColor = true;
             // 
@@ -520,7 +520,7 @@
             fechaFactura.Location = new Point(250, 27);
             fechaFactura.Name = "fechaFactura";
             fechaFactura.Size = new Size(96, 23);
-            fechaFactura.TabIndex = 3;
+            fechaFactura.TabIndex = 2;
             // 
             // cbConceptFac
             // 
@@ -529,7 +529,7 @@
             cbConceptFac.Location = new Point(453, 28);
             cbConceptFac.Name = "cbConceptFac";
             cbConceptFac.Size = new Size(367, 23);
-            cbConceptFac.TabIndex = 5;
+            cbConceptFac.TabIndex = 3;
             // 
             // label10
             // 
@@ -544,9 +544,10 @@
             // 
             txtDescripcion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtDescripcion.Location = new Point(87, 61);
+            txtDescripcion.MaxLength = 255;
             txtDescripcion.Name = "txtDescripcion";
             txtDescripcion.Size = new Size(733, 23);
-            txtDescripcion.TabIndex = 7;
+            txtDescripcion.TabIndex = 4;
             // 
             // label9
             // 
@@ -569,6 +570,7 @@
             // txtNumero
             // 
             txtNumero.Location = new Point(87, 29);
+            txtNumero.MaxLength = 10;
             txtNumero.Name = "txtNumero";
             txtNumero.Size = new Size(88, 23);
             txtNumero.TabIndex = 1;
