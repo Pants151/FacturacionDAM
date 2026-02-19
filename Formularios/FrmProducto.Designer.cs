@@ -55,21 +55,19 @@
             pnBtns.Controls.Add(btnCancelar);
             pnBtns.Controls.Add(btnAceptar);
             pnBtns.Dock = DockStyle.Bottom;
-            pnBtns.Location = new Point(0, 319);
-            pnBtns.Margin = new Padding(3, 4, 3, 4);
+            pnBtns.Location = new Point(0, 239);
             pnBtns.Name = "pnBtns";
-            pnBtns.Size = new Size(646, 84);
+            pnBtns.Size = new Size(565, 63);
             pnBtns.TabIndex = 0;
             // 
             // btnCancelar
             // 
             btnCancelar.Image = (Image)resources.GetObject("btnCancelar.Image");
             btnCancelar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCancelar.Location = new Point(385, 19);
-            btnCancelar.Margin = new Padding(3, 4, 3, 4);
+            btnCancelar.Location = new Point(337, 14);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Padding = new Padding(11, 0, 11, 0);
-            btnCancelar.Size = new Size(114, 48);
+            btnCancelar.Padding = new Padding(10, 0, 10, 0);
+            btnCancelar.Size = new Size(100, 36);
             btnCancelar.TabIndex = 1;
             btnCancelar.Text = "Cancelar";
             btnCancelar.TextAlign = ContentAlignment.MiddleRight;
@@ -80,11 +78,10 @@
             // 
             btnAceptar.Image = (Image)resources.GetObject("btnAceptar.Image");
             btnAceptar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAceptar.Location = new Point(153, 19);
-            btnAceptar.Margin = new Padding(3, 4, 3, 4);
+            btnAceptar.Location = new Point(134, 14);
             btnAceptar.Name = "btnAceptar";
-            btnAceptar.Padding = new Padding(11, 0, 11, 0);
-            btnAceptar.Size = new Size(114, 48);
+            btnAceptar.Padding = new Padding(10, 0, 10, 0);
+            btnAceptar.Size = new Size(100, 36);
             btnAceptar.TabIndex = 0;
             btnAceptar.Text = "Aceptar";
             btnAceptar.TextAlign = ContentAlignment.MiddleRight;
@@ -107,62 +104,60 @@
             pnData.Controls.Add(label2);
             pnData.Dock = DockStyle.Fill;
             pnData.Location = new Point(0, 0);
-            pnData.Margin = new Padding(3, 4, 3, 4);
             pnData.Name = "pnData";
-            pnData.Size = new Size(646, 319);
+            pnData.Size = new Size(565, 239);
             pnData.TabIndex = 1;
             // 
             // label6
             // 
-            label6.Location = new Point(256, 168);
+            label6.Location = new Point(224, 126);
             label6.Name = "label6";
-            label6.Size = new Size(18, 31);
+            label6.Size = new Size(16, 23);
             label6.TabIndex = 24;
             label6.Text = "€";
             label6.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label5
             // 
-            label5.Location = new Point(239, 212);
+            label5.Location = new Point(209, 159);
             label5.Name = "label5";
-            label5.Size = new Size(29, 31);
+            label5.Size = new Size(25, 23);
             label5.TabIndex = 23;
             label5.Text = "%";
             label5.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // txtCodigo
             // 
-            txtCodigo.Location = new Point(141, 77);
-            txtCodigo.Margin = new Padding(3, 4, 3, 4);
+            txtCodigo.Location = new Point(123, 58);
             txtCodigo.MaxLength = 20;
             txtCodigo.Name = "txtCodigo";
             txtCodigo.PlaceholderText = "Código de producto";
-            txtCodigo.Size = new Size(186, 27);
+            txtCodigo.Size = new Size(163, 23);
             txtCodigo.TabIndex = 22;
             // 
             // label4
             // 
-            label4.Location = new Point(32, 76);
+            label4.Location = new Point(28, 57);
             label4.Name = "label4";
-            label4.Size = new Size(98, 31);
+            label4.Size = new Size(86, 23);
             label4.TabIndex = 21;
             label4.Text = "Código:";
             label4.TextAlign = ContentAlignment.MiddleRight;
             // 
             // cbTipoIva
             // 
+            cbTipoIva.DropDownStyle = ComboBoxStyle.DropDownList;
             cbTipoIva.FormattingEnabled = true;
-            cbTipoIva.Location = new Point(141, 213);
-            cbTipoIva.Margin = new Padding(3, 4, 3, 4);
+            cbTipoIva.Location = new Point(123, 160);
             cbTipoIva.Name = "cbTipoIva";
-            cbTipoIva.Size = new Size(91, 28);
+            cbTipoIva.Size = new Size(80, 23);
             cbTipoIva.TabIndex = 20;
             // 
             // label10
             // 
-            label10.Location = new Point(32, 216);
+            label10.Location = new Point(28, 162);
             label10.Name = "label10";
-            label10.Size = new Size(98, 31);
+            label10.Size = new Size(86, 23);
             label10.TabIndex = 19;
             label10.Text = "Tipo de IVA:";
             label10.TextAlign = ContentAlignment.MiddleRight;
@@ -171,19 +166,21 @@
             // 
             numUpDownPrecio.DecimalPlaces = 2;
             numUpDownPrecio.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
-            numUpDownPrecio.Location = new Point(141, 168);
+            numUpDownPrecio.Location = new Point(123, 126);
+            numUpDownPrecio.Margin = new Padding(3, 2, 3, 2);
             numUpDownPrecio.Maximum = new decimal(new int[] { 9999, 0, 0, 131072 });
             numUpDownPrecio.Name = "numUpDownPrecio";
-            numUpDownPrecio.Size = new Size(109, 27);
+            numUpDownPrecio.Size = new Size(95, 23);
             numUpDownPrecio.TabIndex = 18;
             numUpDownPrecio.TextAlign = HorizontalAlignment.Right;
             // 
             // chkActivo
             // 
             chkActivo.AutoSize = true;
-            chkActivo.Location = new Point(141, 260);
+            chkActivo.Location = new Point(123, 195);
+            chkActivo.Margin = new Padding(3, 2, 3, 2);
             chkActivo.Name = "chkActivo";
-            chkActivo.Size = new Size(497, 24);
+            chkActivo.Size = new Size(394, 19);
             chkActivo.TabIndex = 17;
             chkActivo.Text = "¿Activo? Marca el checkbox si el producto está activo en la actualidad.";
             chkActivo.UseVisualStyleBackColor = true;
@@ -192,35 +189,34 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(30, 25);
+            label3.Location = new Point(26, 19);
             label3.Name = "label3";
-            label3.Size = new Size(201, 28);
+            label3.Size = new Size(158, 21);
             label3.TabIndex = 16;
             label3.Text = "Gestión del Producto:";
             // 
             // txtDescripcion
             // 
-            txtDescripcion.Location = new Point(141, 123);
-            txtDescripcion.Margin = new Padding(3, 4, 3, 4);
+            txtDescripcion.Location = new Point(123, 92);
             txtDescripcion.MaxLength = 255;
             txtDescripcion.Name = "txtDescripcion";
-            txtDescripcion.Size = new Size(463, 27);
+            txtDescripcion.Size = new Size(406, 23);
             txtDescripcion.TabIndex = 15;
             // 
             // label1
             // 
-            label1.Location = new Point(32, 169);
+            label1.Location = new Point(28, 127);
             label1.Name = "label1";
-            label1.Size = new Size(98, 31);
+            label1.Size = new Size(86, 23);
             label1.TabIndex = 13;
             label1.Text = "Precio/Unidad:";
             label1.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label2
             // 
-            label2.Location = new Point(32, 123);
+            label2.Location = new Point(28, 92);
             label2.Name = "label2";
-            label2.Size = new Size(98, 31);
+            label2.Size = new Size(86, 23);
             label2.TabIndex = 14;
             label2.Text = "Descripción:";
             label2.TextAlign = ContentAlignment.MiddleRight;
@@ -228,14 +224,13 @@
             // FrmProducto
             // 
             AcceptButton = btnAceptar;
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancelar;
-            ClientSize = new Size(646, 403);
+            ClientSize = new Size(565, 302);
             Controls.Add(pnData);
             Controls.Add(pnBtns);
             FormBorderStyle = FormBorderStyle.Fixed3D;
-            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FrmProducto";

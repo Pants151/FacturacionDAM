@@ -99,20 +99,19 @@ namespace FacturacionDAM.Formularios
 
                 if (TieneFacturasEmitidas(mId))
                 {
-                    MessageBox.Show("No se puede eliminar el Producto porque tiene facturas emitidas.");
+                    MessageBox.Show("No se puede eliminar el Producto porque ya ha sido utilizado en facturas existentes.\n\nPodrías desactivarlo desmarcando la casilla 'Activo' en la edición.",
+                        "Operación denegada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-
-                if (MessageBox.Show("¿Desea eliminar el registro seleccionado?",
-                    "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("¿Desea eliminar el producto seleccionado?",
+                    "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     _bs.RemoveCurrent();
-                    _tabla.GuardarCambios();
+                    _tabla.GuardarCambios(); // Aquí saltará el RejectChanges de Tabla.cs si algo fallara
                     ActualizarEstado();
                 }
             }
-
         }
 
         /// <summary>
@@ -122,6 +121,9 @@ namespace FacturacionDAM.Formularios
         /// <param name="e"></param>
         private void dgTabla_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            // Si el índice es menor que 0, ignoramos el pintado
+            if (e.ColumnIndex < 0 || e.RowIndex < 0) return;
+
             if (dgTabla.Columns[e.ColumnIndex].Name == "idtipoiva")
             {
                 if (e.Value is int idTipoIva)
@@ -287,9 +289,26 @@ namespace FacturacionDAM.Formularios
         /// </summary>
         /// <param name="aId">El id del producto a comprobar.</param>
         /// <returns>Retorna true si tiene facturas, false si no.</returns>
-        private bool TieneFacturasEmitidas(int aId)
+        private bool TieneFacturasEmitidas(int idProducto)
         {
-            return false;
+            try
+            {
+                // En tu base de datos, los productos se vinculan a las líneas de factura.
+                // Asumimos que compruebas por la descripción o el código si no tienes un idproducto directo.
+                // Si tienes una relación directa, cámbialo por idproducto.
+                string sql = "SELECT COUNT(*) FROM facemilin WHERE descripcion = (SELECT descripcion FROM productos WHERE id = @id)";
+
+                using (var cmd = new MySqlCommand(sql, Program.appDAM.LaConexion))
+                {
+                    cmd.Parameters.AddWithValue("@id", idProducto);
+                    int cantidad = Convert.ToInt32(cmd.ExecuteScalar());
+                    return cantidad > 0;
+                }
+            }
+            catch (Exception)
+            {
+                return true; // Por seguridad, si falla la consulta, no dejamos borrar
+            }
         }
 
     }

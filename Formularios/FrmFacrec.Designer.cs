@@ -525,6 +525,7 @@
             // cbConceptFac
             // 
             cbConceptFac.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cbConceptFac.DropDownStyle = ComboBoxStyle.DropDownList;
             cbConceptFac.FormattingEnabled = true;
             cbConceptFac.Location = new Point(453, 28);
             cbConceptFac.Name = "cbConceptFac";
