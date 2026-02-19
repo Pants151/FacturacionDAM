@@ -109,25 +109,32 @@ namespace FacturacionDAM.Modelos {
         /// en el campo "UltimoError".
         /// </summary>
         /// <returns>True si se ha conectado correctamente, false sino.</returns>
-        public bool ConectarDB () {
-            
-            // Si está conectado me aseguro de cerrar antes de iniciar una nueva conexión.
-            if (conectado)
-                _conexion.Close();
-
-            // Asigno la cadena de conexión.
+        public bool ConectarDB()
+        {
+            if (conectado) _conexion.Close();
             _conexion.ConnectionString = configConexion.CadenaDeConexion();
 
-            // Intento la conexión.
-            try {
+            try
+            {
                 _conexion.Open();
                 RegistrarLog("Conexión a la DB", "Conexión abierta correctamente");
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 ultimoError = "Error al intentar la conexión a la base de datos.\n" + ex.Message;
                 RegistrarLog("Conexión a la DB", "Error al intentar la conexión a la base de datos." + ex.Message);
             }
-            estadoApp = (conectado) ? EstadoApp.Conectado : EstadoApp.SinConexion;
+
+            if (conectado)
+            {
+                // Si conectamos pero no tenemos objeto emisor, el estado es "Sin Emisor"
+                estadoApp = (emisor == null) ? EstadoApp.ConectadoSinEmisor : EstadoApp.Conectado;
+            }
+            else
+            {
+                estadoApp = EstadoApp.SinConexion;
+            }
+
             return conectado;
         }
 
@@ -141,15 +148,18 @@ namespace FacturacionDAM.Modelos {
                 try
                 {
                     _conexion.Close();
-                    RegistrarLog("Desonexión de la DB", "Conexión cerrada correctamente.");
+                    RegistrarLog("Desconexión de la DB", "Conexión cerrada correctamente.");
                 }
                 catch (Exception ex)
                 {
                     ultimoError = "Error al intentar cerrar conexión a la base de datos.\n" + ex.Message;
-                    RegistrarLog("Desonexión de la DB", "Error al intentar cerrar conexión a la base de datos." + ex.Message);
+                    RegistrarLog("Desconexión de la DB", "Error al intentar cerrar conexión a la base de datos." + ex.Message);
                 }
             }
-            estadoApp = (conectado) ? EstadoApp.Conectado : EstadoApp.SinConexion;
+
+            // Limpiamos el emisor y forzamos el estado a SinConexion
+            this.emisor = null;
+            this.estadoApp = EstadoApp.SinConexion;
         }
 
         /// <summary>

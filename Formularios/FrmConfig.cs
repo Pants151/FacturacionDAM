@@ -15,21 +15,31 @@ namespace FacturacionDAM.Formularios
         {
             try
             {
-                if (Program.appDAM.estadoApp == EstadoApp.Conectado)
+                if (Program.appDAM.estadoApp == EstadoApp.Conectado || Program.appDAM.estadoApp == EstadoApp.ConectadoSinEmisor)
                 {
                     SetControlesEstadoConexion(true);
-                    // Cerrar conexión
                     Program.appDAM.DesconectarDB();
                     SetControlesEstadoConexion(false);
                 }
                 else
                 {
-                    // Iniciar intento de conexión
                     SetControlesEstadoConexion(true);
-                    Program.appDAM.ConectarDB();
-
-                    // Tras el intento, actualizo
+                    if (Program.appDAM.ConectarDB())
+                    {
+                        // SI LA CONEXIÓN ES EXITOSA:
+                        if (this.MdiParent is FrmMain frmPrincipal)
+                        {
+                            // Forzamos a elegir emisor antes de seguir
+                            frmPrincipal.SeleccionarEmisor();
+                        }
+                    }
                     SetControlesEstadoConexion(false);
+                }
+
+                // Refrescamos la interfaz principal pase lo que pase
+                if (this.MdiParent is FrmMain principal)
+                {
+                    principal.RefreshControles();
                 }
             }
             catch (Exception ex)
@@ -185,6 +195,14 @@ namespace FacturacionDAM.Formularios
             // Ajusto controles
             SetControlesEstadoConexion(false);
 
+        }
+
+        private void FrmConfig_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (this.MdiParent is FrmMain frmPrincipal)
+            {
+                frmPrincipal.RefreshControles();
+            }
         }
     }
 }

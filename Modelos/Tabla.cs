@@ -58,10 +58,50 @@ namespace FacturacionDAM.Modelos
 
         /// <summary>
         /// Guarda los cambios, si los hubiera.
+        /// Captura errores de integridad referencial para evitar cuelgues.
         /// </summary>
         public void GuardarCambios()
         {
-            _adapter.Update(_tabla);
+            try
+            {
+                _adapter.Update(_tabla);
+            }
+            catch (MySqlException ex)
+            {
+                // 1451 es el código de error de MySQL para violaciones de clave foránea
+                if (ex.Number == 1451)
+                {
+                    System.Windows.Forms.MessageBox.Show(
+                        "No se puede eliminar este registro porque está siendo utilizado en otra parte del programa.\n\n" +
+                        "Para borrarlo, primero debes eliminar o cambiar los registros que lo están usando.",
+                        "Operación denegada",
+                        System.Windows.Forms.MessageBoxButtons.OK,
+                        System.Windows.Forms.MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show(
+                        "Error en la base de datos al guardar los cambios:\n\n" + ex.Message,
+                        "Error SQL",
+                        System.Windows.Forms.MessageBoxButtons.OK,
+                        System.Windows.Forms.MessageBoxIcon.Error);
+                }
+
+                // Si falla el guardado, deshacemos el cambio en la memoria.
+                // Así la fila que el usuario intentó borrar vuelve a aparecer en el DataGridView automáticamente.
+                _tabla.RejectChanges();
+            }
+            catch (Exception ex)
+            {
+                Program.appDAM.RegistrarLog("GuardarCambios - Tabla.cs", ex.Message);
+                System.Windows.Forms.MessageBox.Show(
+                    "Ocurrió un error inesperado al guardar los cambios:\n\n" + ex.Message,
+                    "Error",
+                    System.Windows.Forms.MessageBoxButtons.OK,
+                    System.Windows.Forms.MessageBoxIcon.Error);
+
+                _tabla.RejectChanges();
+            }
         }
 
         /// <summary>

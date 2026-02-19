@@ -99,19 +99,19 @@ namespace FacturacionDAM.Formularios
             {
                 int idProveedor = Convert.ToInt32(row["id"]);
 
-                // Verificamos si tiene facturas recibidas (facrec) antes de borrar
+                // Verificamos si tiene facturas vinculadas antes de siquiera preguntar
                 if (TieneFacturasRecibidas(idProveedor))
                 {
-                    MessageBox.Show("No se puede eliminar el proveedor porque tiene facturas de compra registradas.",
-                        "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("No se puede eliminar este proveedor porque tiene facturas de compra registradas asociadas.\n\nPara borrarlo, primero debes eliminar sus facturas.",
+                        "Operación denegada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 if (MessageBox.Show("¿Desea eliminar el proveedor seleccionado?",
-                    "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    "Confirmar borrado", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     _bs.RemoveCurrent();
-                    _tabla.GuardarCambios();
+                    _tabla.GuardarCambios(); // Aquí saltará el RejectChanges de Tabla.cs si algo fallara en BD
                     ActualizarEstado();
                 }
             }
@@ -122,6 +122,9 @@ namespace FacturacionDAM.Formularios
         /// </summary>
         private void dgTabla_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            // Evita el crash al refrescar filas tras un borrado bloqueado
+            if (e.ColumnIndex < 0 || e.RowIndex < 0) return;
+
             if (dgTabla.Columns[e.ColumnIndex].Name == "idprovincia")
             {
                 if (e.Value is int idProvincia)

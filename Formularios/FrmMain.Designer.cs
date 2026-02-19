@@ -355,7 +355,7 @@
             // 
             tsLbEmisor.AutoSize = false;
             tsLbEmisor.Name = "tsLbEmisor";
-            tsLbEmisor.Size = new Size(250, 21);
+            tsLbEmisor.Size = new Size(260, 21);
             tsLbEmisor.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tsLbEtiquetaInfo

@@ -95,24 +95,24 @@ namespace FacturacionDAM.Formularios
         {
             if (_bs.Current is DataRowView row)
             {
-                string mNif = row["nifcif"].ToString();
+                // Buscamos por ID
+                int idCliente = Convert.ToInt32(row["id"]);
 
-                if (TieneFacturasEmitidas(mNif))
+                if (TieneFacturasEmitidas(idCliente))
                 {
-                    MessageBox.Show("No se puede eliminar el Cliente porque tiene facturas emitidas.");
+                    MessageBox.Show("No se puede eliminar este cliente porque tiene facturas emitidas asociadas.\n\nPara borrarlo, primero debes eliminar sus facturas.",
+                        "Operación denegada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-
                 if (MessageBox.Show("¿Desea eliminar el registro seleccionado?",
-                    "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     _bs.RemoveCurrent();
                     _tabla.GuardarCambios();
                     ActualizarEstado();
                 }
             }
-
         }
 
         /// <summary>
@@ -122,6 +122,9 @@ namespace FacturacionDAM.Formularios
         /// <param name="e"></param>
         private void dgTabla_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            // Si el índice es menor que 0, ignoramos el pintado
+            if (e.ColumnIndex < 0 || e.RowIndex < 0) return;
+
             if (dgTabla.Columns[e.ColumnIndex].Name == "idprovincia")
             {
                 if (e.Value is int idProvincia)
@@ -140,13 +143,6 @@ namespace FacturacionDAM.Formularios
         private void FrmBrowClientes_Load(object sender, EventArgs e)
         {
             _tabla = new Tabla(Program.appDAM.LaConexion);
-
-            /*
-             *  string mSql = "SELECT e.id, e.nifcif, e.nombre, e.apellido, e.nombrecomercial," +
-                "e.domicilio, e.codigopostal, e.idprovincia, p.nombreprovincia AS provincia," +
-                "e.telefono1, e.telefono2, e.email, e.descripcion " +
-                "FROM Clientes e JOIN provincias p ON e.idprovincia = p.id";
-            */
             string mSql = "SELECT * FROM clientes";
 
             if (_tabla.InicializarDatos(mSql))
@@ -289,10 +285,23 @@ namespace FacturacionDAM.Formularios
         /// </summary>
         /// <param name="aNifCif">El nif/cif del cliente a comprobar.</param>
         /// <returns>Retorna true si tiene facturas, false si no.</returns>
-        private bool TieneFacturasEmitidas(string aNifCif)
+        private bool TieneFacturasEmitidas(int idCliente)
         {
-            return false;
+            try
+            {
+                // Hacemos una consulta rápida (COUNT) para ver si hay alguna factura con el ID de este cliente
+                string sqlCheck = $"SELECT COUNT(*) FROM facemi WHERE idcliente = {idCliente}";
+                using (var cmd = new MySqlCommand(sqlCheck, Program.appDAM.LaConexion))
+                {
+                    int cantidad = Convert.ToInt32(cmd.ExecuteScalar());
+                    return cantidad > 0;
+                }
+            }
+            catch (Exception)
+            {
+                // Si hay algún problema de conexión, por seguridad decimos que SÍ tiene para que no le deje borrar
+                return true;
+            }
         }
-
     }
 }

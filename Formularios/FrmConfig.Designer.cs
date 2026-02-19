@@ -252,6 +252,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FrmConfig";
             Text = "Conexión a Bases de Datos";
+            FormClosing += FrmConfig_FormClosing;
             Load += FrmConnection_Load;
             pnData.ResumeLayout(false);
             pnData.PerformLayout();

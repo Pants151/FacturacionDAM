@@ -32,6 +32,22 @@ namespace FacturacionDAM.Formularios
 
         private void tsBtnConfig_Click(object sender, EventArgs e)
         {
+            // Si hay ventanas abiertas que NO sean la propia configuración
+            if (this.MdiChildren.Any(f => f is not FrmConfig))
+            {
+                var res = MessageBox.Show("Para entrar en configuración se deben cerrar todas las ventanas abiertas. ¿Desea continuar?",
+                                        "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (res == DialogResult.Yes)
+                {
+                    CerrarFormulariosHijos();
+                }
+                else
+                {
+                    return; // El usuario cancela la entrada a configuración
+                }
+            }
+
             AbrirFormularioHijo<FrmConfig>();
         }
 
@@ -143,7 +159,7 @@ namespace FacturacionDAM.Formularios
 
         /*************** MÉTODOS PRIVADOS *******************/
 
-        private void SeleccionarEmisor()
+        public void SeleccionarEmisor()
         {
             if ((Program.appDAM.estadoApp == EstadoApp.ConectadoSinEmisor) ||
                  (Program.appDAM.estadoApp == EstadoApp.Conectado))
@@ -173,12 +189,19 @@ namespace FacturacionDAM.Formularios
         /// </summary>
         private void AbrirFormularioHijo<T>() where T : Form, new()
         {
-            // Buscar si ya existe un formulario hijo de ese tipo
+            // Si intentamos abrir algo que NO es configuración, pero la configuración SÍ está abierta...
+            if (typeof(T) != typeof(FrmConfig) && this.MdiChildren.Any(f => f is FrmConfig))
+            {
+                MessageBox.Show("Debe cerrar la ventana de configuración antes de abrir otra sección.",
+                                "Configuración en curso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // [Tu código actual de búsqueda y apertura...]
             foreach (Form frm in this.MdiChildren)
             {
                 if (frm is T)
                 {
-                    // Si estaba minimizado, lo restauramos
                     if (frm.WindowState == FormWindowState.Minimized)
                         frm.WindowState = FormWindowState.Normal;
 
@@ -187,7 +210,6 @@ namespace FacturacionDAM.Formularios
                 }
             }
 
-            // No estaba abierto: creamos una nueva instancia
             T nuevoFrm = new T();
             nuevoFrm.MdiParent = this;
             nuevoFrm.WindowState = FormWindowState.Maximized;
@@ -195,33 +217,22 @@ namespace FacturacionDAM.Formularios
         }
 
 
+        // 2. Actualiza el refresco para incluir el menú superior
         private void RefreshToolBar()
         {
-            if (Program.appDAM.estadoApp != EstadoApp.Conectado)
-            {
-                foreach (ToolStripItem item in tsToolMain.Items)
-                {
-                    if (item is ToolStripButton)
-                    {
-                        switch (item.Name)
-                        {
-                            case "tsBtnConfig":
-                                item.Enabled = true;
-                                break;
-                            case "tsBtnSalir":
-                                item.Enabled = true;
-                                break;
-                            case "tsBtnEmisores":
-                                item.Enabled = (Program.appDAM.estadoApp == EstadoApp.ConectadoSinEmisor) ? true : false;
-                                break;
-                            default:
-                                item.Enabled = false;
-                                break;
+            bool conectadoFull = (Program.appDAM.estadoApp == EstadoApp.Conectado);
+            bool conectadoParcial = (Program.appDAM.estadoApp == EstadoApp.ConectadoSinEmisor);
 
-                        }
-                    }
-                }
-            }
+            // BOTONES LATERALES
+            tsBtnEmisores.Enabled = conectadoFull || conectadoParcial;
+            tsBtnClientes.Enabled = conectadoFull;
+            tsBtnProveedores.Enabled = conectadoFull;
+            tsBtnVentas.Enabled = conectadoFull;
+            tsBtnCompras.Enabled = conectadoFull;
+
+            // SECCIÓN DE FACTURACIÓN DEL MENUSTRIP
+            // (Asegúrate de que este nombre coincide con el de tu Property Name en el diseño)
+            facturaciónToolStripMenuItem.Enabled = conectadoFull;
         }
 
         private void RefreshStatusBar()
@@ -254,7 +265,7 @@ namespace FacturacionDAM.Formularios
         /// <summary>
         /// Actualiza la barra de estado y la barra de botones izquierda.
         /// </summary>
-        private void RefreshControles()
+        public void RefreshControles()
         {
             RefreshToolBar();
             RefreshStatusBar();

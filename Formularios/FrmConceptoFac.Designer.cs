@@ -61,7 +61,7 @@
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Padding = new Padding(10, 0, 10, 0);
             btnCancelar.Size = new Size(97, 36);
-            btnCancelar.TabIndex = 4;
+            btnCancelar.TabIndex = 3;
             btnCancelar.Text = "Cancelar";
             btnCancelar.TextAlign = ContentAlignment.MiddleRight;
             btnCancelar.UseVisualStyleBackColor = true;
@@ -75,7 +75,7 @@
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Padding = new Padding(10, 0, 10, 0);
             btnAceptar.Size = new Size(97, 36);
-            btnAceptar.TabIndex = 3;
+            btnAceptar.TabIndex = 2;
             btnAceptar.Text = "Aceptar";
             btnAceptar.TextAlign = ContentAlignment.MiddleRight;
             btnAceptar.UseVisualStyleBackColor = true;
@@ -84,6 +84,7 @@
             // txtDescripcion
             // 
             txtDescripcion.Location = new Point(119, 96);
+            txtDescripcion.MaxLength = 100;
             txtDescripcion.Name = "txtDescripcion";
             txtDescripcion.PlaceholderText = "Descripción del concepto de facturación";
             txtDescripcion.Size = new Size(562, 23);
