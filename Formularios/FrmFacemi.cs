@@ -78,17 +78,17 @@ namespace FacturacionDAM.Formularios
                 if (!CargarConceptos() || !CargarDatosEmisorYCliente())
                     return;
 
-                // 1. CARGAR LAS LÍNEAS PRIMERO (Para que LaTabla ya no sea null)
+                // CARGAR LAS LÍNEAS PRIMERO
                 if (modoEdicion)
                     CargarLineasFacturaExistente();
                 else
                     CrearLineasFacturaNueva();
 
-                // 2. PREPARAR BINDINGS DESPUÉS
+                // PREPARAR BINDINGS DESPUÉS
                 PrepararBindingFactura();
                 PrepararBindingLineas();
 
-                // 3. CALCULAR Y ACTUALIZAR ESTADO
+                // CALCULAR Y ACTUALIZAR ESTADO
                 RecalcularTotales();
                 ActualizarEstado();
 
@@ -517,7 +517,7 @@ namespace FacturacionDAM.Formularios
                 return false;
 
             // ============================
-            // 1. Validación de campos obligatorios
+            // Validación de campos obligatorios
             // ============================
 
             // Número
@@ -557,7 +557,7 @@ namespace FacturacionDAM.Formularios
             }
 
             // ============================
-            // 2. Fecha dentro del año seleccionado
+            // Fecha dentro del año seleccionado
             // ============================
 
             DateTime fecha = Convert.ToDateTime(row["fecha"]);
@@ -576,33 +576,30 @@ namespace FacturacionDAM.Formularios
             }
 
             // ============================
-            // 3. Comprobar duplicados usando EjecutarComando
+            // Comprobar duplicados PARA EL MISMO CLIENTE
             // ============================
 
             int numero = Convert.ToInt32(txtNumero.Text);
             int idActual = modoEdicion ? idFactura : -1;
 
-            // Comprobamos si el número ya existe para este emisor en este año (independientemente del cliente)
+            // Solo saltará el error si el MISMO cliente ya tiene ese número en ese año.
             string sqlCheck = $@"SELECT COUNT(*) FROM facemi 
-                    WHERE idemisor = {Program.appDAM.emisor.id} 
-                    AND numero = {numero} 
-                    AND YEAR(fecha) = {fechaFactura.Value.Year} 
-                    AND id <> {idActual}";
+            WHERE idemisor = {Program.appDAM.emisor.id} 
+            AND idcliente = {_idCliente}
+            AND numero = {numero} 
+            AND YEAR(fecha) = {fechaFactura.Value.Year} 
+            AND id <> {idActual}";
 
             using (var cmd = new MySql.Data.MySqlClient.MySqlCommand(sqlCheck, Program.appDAM.LaConexion))
             {
                 if (Convert.ToInt32(cmd.ExecuteScalar()) > 0)
                 {
-                    MessageBox.Show($"El número de factura {numero} ya existe en el año {fechaFactura.Value.Year}.",
+                    MessageBox.Show($"El número de factura {numero} ya existe PARA ESTE CLIENTE en el año {fechaFactura.Value.Year}.",
                         "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtNumero.Focus();
                     return false;
                 }
             }
-
-            // ============================
-            // Todo correcto
-            // ============================
 
             return true;
         }

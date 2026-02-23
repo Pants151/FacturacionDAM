@@ -407,7 +407,7 @@ namespace FacturacionDAM.Formularios
                 return false;
 
             // ============================
-            // 1. Validación de campos obligatorios
+            // Validación de campos obligatorios
             // ============================
 
             // Número
@@ -447,7 +447,7 @@ namespace FacturacionDAM.Formularios
             }
 
             // ============================
-            // 2. Fecha dentro del año seleccionado
+            // Fecha dentro del año seleccionado
             // ============================
 
             DateTime fecha = Convert.ToDateTime(row["fecha"]);
@@ -466,15 +466,16 @@ namespace FacturacionDAM.Formularios
             }
 
             // ============================
-            // 3. Comprobar duplicados usando EjecutarComando
+            // Comprobar duplicados PARA EL MISMO PROVEEDOR
             // ============================
 
             int numero = Convert.ToInt32(txtNumero.Text);
             int idActual = modoEdicion ? idFactura : -1;
 
-            // Comprobamos si el número ya existe para este emisor en este año (independientemente del cliente)
+            // Permitimos que diferentes proveedores tengan el mismo número de factura en el mismo año.
             string sqlCheck = $@"SELECT COUNT(*) FROM facrec 
                     WHERE idempresa = {Program.appDAM.emisor.id} 
+                    AND idproveedor = {_idProveedor}
                     AND numero = {numero} 
                     AND YEAR(fecha) = {fechaFactura.Value.Year} 
                     AND id <> {idActual}";
@@ -483,7 +484,7 @@ namespace FacturacionDAM.Formularios
             {
                 if (Convert.ToInt32(cmd.ExecuteScalar()) > 0)
                 {
-                    MessageBox.Show($"El número de factura {numero} ya existe en el año {fechaFactura.Value.Year}.",
+                    MessageBox.Show($"El número de factura {numero} ya existe PARA ESTE PROVEEDOR en el año {fechaFactura.Value.Year}.",
                         "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtNumero.Focus();
                     return false;
